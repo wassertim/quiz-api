@@ -40,17 +40,38 @@ paths:
               schema:
                 $ref: "#/components/schemas/Token"
   /quizes:
-    post:
+    put:
+      operationId: editQuiz
+      description: Edit a quiz
       security:
         - basicAuth: []
-      operationId: createQuiz
-      description: Create a quiz
       requestBody:
         content:
           application/json:
             schema:
               $ref: "#/components/schemas/QuizTemplate"
       responses:
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        200:
+          description: Quiz updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuizTemplate"
+    post:
+      operationId: createQuiz
+      description: Create a quiz
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuizTemplate"
+      responses:
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
         201:
           description: Quiz created
           content:
@@ -59,6 +80,13 @@ paths:
                 $ref: "#/components/schemas/QuizTemplate"
 
 components:
+  responses:
+    UnauthorizedError:
+      description: Authentication information is missing or invalid
+      headers:
+        WWW_Authenticate:
+          schema:
+            type: string
   securitySchemes:
     basicAuth:
       type: http
