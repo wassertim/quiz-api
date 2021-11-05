@@ -23,7 +23,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
-  /quizes:
+  /quizzes/{quizId}:
     put:
       operationId: editQuiz
       description: Edit a quiz
@@ -43,6 +43,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/QuizTemplate"
+  /quizzes:
     post:
       operationId: createQuiz
       description: Create a quiz
@@ -88,9 +89,12 @@ components:
     QuestionTemplate:
       type: object
       properties:
-        question:
+        questionText:
           type: string
           example: what is the answer to life the universe and everything
+        questionScore:
+          type: integer
+          example: 5
         answers:
           type: array
           items:
@@ -100,6 +104,7 @@ components:
       properties:
         questions:
           type: array
+          minItems: 1
           items:
             $ref: "#/components/schemas/QuestionTemplate"
     Token:
