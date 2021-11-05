@@ -1,0 +1,57 @@
+openapi: '3.1.0'
+info:
+  title: Quiz
+  version: '1.0'
+  description: Small Quiz Api
+servers:
+  - url: http://localhost:3000
+    description: local
+paths:
+  /users/register:
+    post:
+      operationId: createAccount
+      description: Create an account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        201:
+          description: User created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /users/login:
+    post:
+      operationId: login
+      description: User login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        200:
+          description: User logged in sucessfully
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/schemas/Token"
+
+components:
+  schemas:
+    Token:
+      type: string
+      example: Basic asfe8fsdbffsaegkk
+    User:
+      type: object
+      properties:
+        login:
+          type: string
+          example: laura
+        password:
+          type: string
+          example: mypassword
+
