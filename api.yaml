@@ -23,22 +23,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
-  /users/login: #migh not be needed
-    post:
-      operationId: login
-      description: User login
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/User"
-      responses:
-        200:
-          description: User logged in sucessfully
-          content:
-            text/plain:
-              schema:
-                $ref: "#/components/schemas/Token"
   /quizes:
     put:
       operationId: editQuiz
