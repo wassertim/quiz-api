@@ -1,4 +1,4 @@
-openapi: '3.1.0'
+openapi: '3.0.1'
 info:
   title: Quiz
   version: '1.0'
@@ -23,7 +23,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
-  /users/login:
+  /users/login: #migh not be needed
     post:
       operationId: login
       description: User login
@@ -39,12 +39,60 @@ paths:
             text/plain:
               schema:
                 $ref: "#/components/schemas/Token"
+  /quizes:
+    post:
+      security:
+        - basicAuth: []
+      operationId: createQuiz
+      description: Create a quiz
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuizTemplate"
+      responses:
+        201:
+          description: Quiz created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuizTemplate"
 
 components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
   schemas:
+    Answer:
+      type: object
+      properties:
+        text:
+          type: string
+          example: 42
+        isCorrect:
+          type: boolean
+          example: true
+    QuestionTemplate:
+      type: object
+      properties:
+        question:
+          type: string
+          example: what is the answer to life the universe and everything
+        answers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Answer"
+    QuizTemplate:
+      type: object
+      properties:
+        questions:
+          type: array
+          items:
+            $ref: "#/components/schemas/QuestionTemplate"
     Token:
       type: string
-      example: Basic asfe8fsdbffsaegkk
+      example: Basic ZGVtbzpwQDU1dzByZA==
     User:
       type: object
       properties:
