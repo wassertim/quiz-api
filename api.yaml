@@ -149,7 +149,6 @@ components:
         quizId:
           $ref: "#/components/schemas/UUID"
         attempts:
-          required: true
           type: array
           items:
             $ref: "#/components/schemas/QuizSubmissionResult"
@@ -159,7 +158,6 @@ components:
         questionId:
           $ref: "#/components/schemas/UUID"
         answers:
-          required: true
           type: array
           items:
             $ref: "#/components/schemas/UUID"
@@ -169,7 +167,6 @@ components:
         quizId:
           $ref: "#/components/schemas/UUID"
         questionsAndAnswers:
-          required: true
           type: array
           items:
             $ref: "#/components/schemas/QuestionAndAnswers"
@@ -179,11 +176,11 @@ components:
         questionId:
           $ref: "#/components/schemas/UUID"
         score:
-          required: true
+          nullable: false
           type: integer
           example: 5
         selectedAnswerIds:
-          required: true
+          nullable: false
           type: array
           items:
             $ref: "#/components/schemas/UUID"
@@ -193,40 +190,38 @@ components:
         quizId:
           $ref: "#/components/schemas/UUID"
         questionResults:
-          required: true
           type: array
           items:
             $ref: "#/components/schemas/QuestionResult"
     UUID:
-      required: true
       type: string
       example: 5197EE1E-ACF4-4DDC-89EE-467A60CF1DCA
     Answer:
       type: object
       properties:
         text:
-          required: true
+          nullable: false
           type: string
           example: "42"
           minLength: 1
         isCorrect:
-          required: true
+          nullable: false
           type: boolean
           example: true
     QuestionTemplate:
       type: object
       properties:
         questionText:
-          required: true
+          nullable: false
           type: string
           minLength: 1
           example: what is the answer to life the universe and everything
         questionScore:
-          required: true
+          nullable: false
           type: integer
           example: 5
         answers:
-          required: true
+          nullable: false
           type: array
           minItems: 2
           items:
@@ -235,24 +230,23 @@ components:
       type: object
       properties:
         questions:
-          required: true
+          nullable: false
           type: array
           minItems: 1
           items:
             $ref: "#/components/schemas/QuestionTemplate"
     Token:
       type: string
-      required: true
       example: Basic ZGVtbzpwQDU1dzByZA==
     User:
       type: object
       properties:
         login:
-          required: true
           type: string
+          nullable: false
           example: laura
         password:
-          required: true
           type: string
+          nullable: false
           example: mypassword
 
