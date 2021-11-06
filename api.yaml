@@ -23,10 +23,69 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
+  /users/login: #migh not be needed
+    post:
+      operationId: login
+      description: User login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        200:
+          description: User logged in sucessfully
+          content:
+            text/plain:
+              schema:
+                $ref: "#/components/schemas/Token"
+  /quiz-attempts/statistics:
+    get:
+      operationId: getQuizAttemptsStatistics
+      description: Get statistics on quiz attempts
+      security:
+        - basicAuth: []
+      responses:
+        200:
+          description: "Basic stats on quiz attempts/completion/scores/etc..."
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref:
+  /quiz-attempts/submit/{quizId}:
+    post:
+      operationId: submitQuizAttempt
+      description: Submit a completed quiz
+      parameters:
+        - in: path
+          name: quizId
+          schema:
+            $ref: "#/components/schemas/UUID"
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuizSubmission"
+      responses:
+        200:
+          description: Quiz submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuizSubmissionResult"
   /quizzes/{quizId}:
     put:
       operationId: editQuiz
       description: Edit a quiz
+      parameters:
+        - in: path
+          name: quizId
+          schema:
+            $ref: "#/components/schemas/UUID"
       security:
         - basicAuth: []
       requestBody:
@@ -77,12 +136,64 @@ components:
       type: http
       scheme: basic
   schemas:
+    QuizStatistics:
+      type: object
+      properties:
+        quizId:
+          $ref: "#/components/schemas/UUID"
+        attempts:
+          type: array
+          items:
+            $ref: "#/components/schemas/QuizSubmissionResult"
+    QuestionAndAnswers:
+      type: object
+      properties:
+        questionId:
+          $ref: "#/components/schemas/UUID"
+        answers:
+          type: array
+          items:
+            $ref: "#/components/schemas/UUID"
+    QuizSubmission:
+      type: object
+      properties:
+        quizId:
+          $ref: "#/components/schemas/UUID"
+        questionsAndAnswers:
+          type: array
+          items:
+            $ref: "#/components/schemas/QuestionAndAnswers"
+    QuestionResult:
+      type: object
+      properties:
+        questionId:
+          $ref: "#/components/schemas/UUID"
+        score:
+          type: integer
+          example: 5
+        selectedAnswerIds:
+          type: array
+          items:
+            $ref: "#/components/schemas/UUID"
+    QuizSubmissionResult:
+      type: object
+      properties:
+        quizId:
+          $ref: "#/components/schemas/UUID"
+        questionResults:
+          type: array
+          items:
+            $ref: "#/components/schemas/QuestionResult"
+    UUID:
+      type: string
+      example: 5197EE1E-ACF4-4DDC-89EE-467A60CF1DCA
     Answer:
       type: object
       properties:
         text:
           type: string
-          example: 42
+          example: "42"
+          minLength: 1
         isCorrect:
           type: boolean
           example: true
@@ -91,6 +202,7 @@ components:
       properties:
         questionText:
           type: string
+          minLength: 1
           example: what is the answer to life the universe and everything
         questionScore:
           type: integer
