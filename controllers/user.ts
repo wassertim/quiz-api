@@ -5,7 +5,7 @@ import {User} from "../model/user";
 
 const {HTTP_STATUS_CREATED, HTTP_STATUS_BAD_REQUEST, HTTP_STATUS_INTERNAL_SERVER_ERROR} = constants;
 
-export async function register(req: Request<any, any, User>, res: Response<User | string>) {
+export async function register(req: Request<unknown, unknown, User>, res: Response<User | string>) {
   return (await createUser(req.body))
       .map(user => res.status(HTTP_STATUS_CREATED).send(user))
       .mapErr(err => {
