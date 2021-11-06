@@ -1,12 +1,14 @@
 import {Response} from "express";
 
 export const mockResponse = () => {
-  return {
+  const response = {
     status: jest.fn().mockImplementation(() => {
-      return this;
+      return response;
     }),
     send: jest.fn().mockImplementation(() => {
-      return this;
+      return response;
     }),
   } as Partial<Response>;
+
+  return response;
 };
