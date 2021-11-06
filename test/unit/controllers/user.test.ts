@@ -1,5 +1,5 @@
 import {register} from "../../../controllers/user";
-import {createUser, VALIDATION_ERROR} from "../../../services/user";
+import {createUser, USER_EXISTS, VALIDATION_ERROR} from "../../../services/user";
 import {mocked} from 'ts-jest/utils';
 
 jest.mock("../../../services/user");
@@ -27,12 +27,24 @@ describe("Register User API", () => {
     expect(response.status).toBeCalledWith(HTTP_STATUS_CREATED);
     expect(response.send).toBeCalledWith(user);
   });
-  test("Should return BAD_REQUEST on validation error", async () => {
+  test("Should return BAD_REQUEST when validation error", async () => {
     const req = {body: {}} as Request;
     const response = mockResponse();
     const mockedCreateUser = mocked(createUser, true);
     const errorMessage = "User is invalid";
     mockedCreateUser.mockResolvedValue(err({code: VALIDATION_ERROR, message: errorMessage}));
+
+    await register(req, response as Response);
+
+    expect(response.status).toBeCalledWith(HTTP_STATUS_BAD_REQUEST);
+    expect(response.send).toBeCalledWith(errorMessage);
+  });
+  test("Should return BAD_REQUEST when user exists", async () => {
+    const req = {body: {}} as Request;
+    const response = mockResponse();
+    const mockedCreateUser = mocked(createUser, true);
+    const errorMessage = "User exists";
+    mockedCreateUser.mockResolvedValue(err({code: USER_EXISTS, message: errorMessage}));
 
     await register(req, response as Response);
 
