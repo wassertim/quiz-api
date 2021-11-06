@@ -12,6 +12,7 @@ paths:
       operationId: createAccount
       description: Create an account
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -28,6 +29,7 @@ paths:
       operationId: login
       description: User login
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -67,6 +69,7 @@ paths:
       security:
         - basicAuth: []
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -91,6 +94,7 @@ paths:
       security:
         - basicAuth: []
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -111,6 +115,7 @@ paths:
       security:
         - basicAuth: []
       requestBody:
+        required: true
         content:
           application/json:
             schema:
@@ -144,6 +149,7 @@ components:
         quizId:
           $ref: "#/components/schemas/UUID"
         attempts:
+          required: true
           type: array
           items:
             $ref: "#/components/schemas/QuizSubmissionResult"
@@ -153,6 +159,7 @@ components:
         questionId:
           $ref: "#/components/schemas/UUID"
         answers:
+          required: true
           type: array
           items:
             $ref: "#/components/schemas/UUID"
@@ -162,6 +169,7 @@ components:
         quizId:
           $ref: "#/components/schemas/UUID"
         questionsAndAnswers:
+          required: true
           type: array
           items:
             $ref: "#/components/schemas/QuestionAndAnswers"
@@ -171,9 +179,11 @@ components:
         questionId:
           $ref: "#/components/schemas/UUID"
         score:
+          required: true
           type: integer
           example: 5
         selectedAnswerIds:
+          required: true
           type: array
           items:
             $ref: "#/components/schemas/UUID"
@@ -183,54 +193,66 @@ components:
         quizId:
           $ref: "#/components/schemas/UUID"
         questionResults:
+          required: true
           type: array
           items:
             $ref: "#/components/schemas/QuestionResult"
     UUID:
+      required: true
       type: string
       example: 5197EE1E-ACF4-4DDC-89EE-467A60CF1DCA
     Answer:
       type: object
       properties:
         text:
+          required: true
           type: string
           example: "42"
           minLength: 1
         isCorrect:
+          required: true
           type: boolean
           example: true
     QuestionTemplate:
       type: object
       properties:
         questionText:
+          required: true
           type: string
           minLength: 1
           example: what is the answer to life the universe and everything
         questionScore:
+          required: true
           type: integer
           example: 5
         answers:
+          required: true
           type: array
+          minItems: 2
           items:
             $ref: "#/components/schemas/Answer"
     QuizTemplate:
       type: object
       properties:
         questions:
+          required: true
           type: array
           minItems: 1
           items:
             $ref: "#/components/schemas/QuestionTemplate"
     Token:
       type: string
+      required: true
       example: Basic ZGVtbzpwQDU1dzByZA==
     User:
       type: object
       properties:
         login:
+          required: true
           type: string
           example: laura
         password:
+          required: true
           type: string
           example: mypassword
 

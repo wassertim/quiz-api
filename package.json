@@ -2,6 +2,8 @@
   "scripts": {
     "gen:typescript-fetch": "sh ./generate.sh typescript-fetch",
     "gen:nodejs-express-server": "sh ./generate.sh nodejs-express-server",
+    "gen:typescript-node": "sh ./generate.sh typescript-node",
+    "gen:typescript": "sh ./generate.sh typescript",
     "gen:go-server": "sh generate.sh go-server",
     "echo": "echo $GEN_NAME",
     "prism:mock": "prism mock ./api.yaml"
