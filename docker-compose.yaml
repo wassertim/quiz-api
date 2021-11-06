@@ -1,8 +1,7 @@
 version: "3.1"
 services:
-  postgres:
+  mongo:
     image: mongo:5.0.3
     container_name: "quiz-mongo"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: secret
+    ports:
+      - '27017:27017'
