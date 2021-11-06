@@ -53,7 +53,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref:
+                  $ref: "#/components/schemas/QuizStatistics"
   /quiz-attempts/submit/{quizId}:
     post:
       operationId: submitQuizAttempt
@@ -61,6 +61,7 @@ paths:
       parameters:
         - in: path
           name: quizId
+          required: true
           schema:
             $ref: "#/components/schemas/UUID"
       security:
@@ -84,6 +85,7 @@ paths:
       parameters:
         - in: path
           name: quizId
+          required: true
           schema:
             $ref: "#/components/schemas/UUID"
       security:

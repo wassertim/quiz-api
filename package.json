@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "gen:typescript-fetch": "sh ./generate.sh typescript-fetch",
+    "gen:nodejs-express-server": "sh ./generate.sh nodejs-express-server",
+    "gen:go-server": "sh generate.sh go-server",
+    "echo": "echo $GEN_NAME",
+    "prism:mock": "prism mock ./api.yaml"
+  },
+  "dependencies": {
+    "@openapitools/openapi-generator-cli": "^2.4.13",
+    "@stoplight/prism-cli": "^4.5.0"
+  }
+}
