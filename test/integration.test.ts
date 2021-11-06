@@ -1,13 +1,9 @@
 import {app} from "../app";
 import request from "supertest";
 
-describe("Countries API test", () => {
-  test("It should GET all Countries", (done) => {
-    request(app)
-        .get("/home")
-        .then(response => {
-          expect(response.statusCode).toBe(200);
-          done();
-        });
+describe("API Integration test", () => {
+  test("It should GET home", async () => {
+    const response = await request(app).get("/home");
+    expect(response.statusCode).toBe(200);
   });
 });
