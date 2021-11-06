@@ -18,6 +18,12 @@ paths:
             schema:
               $ref: "#/components/schemas/User"
       responses:
+        400:
+          description: User validation failed
+          content:
+            text/plain:
+              schema:
+                type: string
         201:
           description: User created
           content:

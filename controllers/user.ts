@@ -1,19 +1,20 @@
 import {Request, Response, NextFunction} from "express";
 import {createUser} from "../services/user";
 import {constants} from "http2";
+import {User} from "../model/user";
 
 const {HTTP_STATUS_CREATED, HTTP_STATUS_BAD_REQUEST, HTTP_STATUS_INTERNAL_SERVER_ERROR} = constants;
 
-export async function register(req: Request, res: Response) {
+export async function register(req: Request<any, any, User>, res: Response<User | string>) {
   return (await createUser(req.body))
       .map(user => res.status(HTTP_STATUS_CREATED).send(user))
       .mapErr(err => {
         if ((["USER_EXISTS", "VALIDATION_ERROR"].includes(err.code))) {
           return res.status(HTTP_STATUS_BAD_REQUEST).send(err.message);
         }
-        return res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send(err);
+        return res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send(err.message);
       })
-      .unwrapOr(res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send("Unknown Error"));
+      .unwrapOr(() => res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send("Unknown Error"));
 }
 
 export function login(req: Request, res: Response, next: NextFunction) {
