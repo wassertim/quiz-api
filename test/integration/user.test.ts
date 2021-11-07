@@ -1,33 +1,10 @@
 import {app} from "../../app";
 import request from "supertest";
-import {mongoConnect} from "../../db";
-import {Db, MongoClient} from "mongodb";
 import {constants} from "http2";
-
-function initMongo() {
-  let mongoClient: MongoClient;
-  let db: Db;
-  beforeAll(async () => {
-    const {_db, client} = (await mongoConnect());
-    mongoClient = client;
-    db = _db;
-  });
-  beforeEach(async () => {
-    (await db.collections())
-        .filter(c => !c.collectionName.includes("system."))
-        .forEach((c) => c.deleteMany({}));
-  });
-  afterAll(async () => {
-    try {
-      await mongoClient.close();
-    } catch (e) {
-      console.log(e);
-    }
-  });
-}
+import {initDatabase} from "./util/init.db";
 
 describe("Register User API", () => {
-  initMongo();
+  initDatabase();
   test("Should register a user", async () => {
     const response = await request(app)
         .post("/users/register")
