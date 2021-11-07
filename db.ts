@@ -3,12 +3,12 @@ import {MongoClient, Db} from "mongodb";
 let _db: Db;
 const uri = 'mongodb://localhost:27017/quiz';
 
-export const mongoConnect = () => {
-  return MongoClient.connect(uri)
-      .then(client => {
-        _db = client.db('quiz');
-        return _db;
-      });
+export const mongoConnect = async () => {
+  const client = await MongoClient.connect(uri);
+  _db = client.db('quiz');
+  await _db.collection("users").createIndex({"login": 1}, {unique: true});
+
+  return _db;
 };
 
 export const getDB = () => {
@@ -18,3 +18,5 @@ export const getDB = () => {
     throw new Error('DB connect failed');
   }
 };
+
+export const Users = () => getDB().collection("users");

@@ -1,5 +1,5 @@
 import {register} from "../../../controllers/user";
-import {createUser, USER_EXISTS, VALIDATION_ERROR} from "../../../services/user";
+import {createUser, UNKNOWN_ERROR, USER_EXISTS, VALIDATION_ERROR} from "../../../services/user";
 import {mocked} from 'ts-jest/utils';
 
 jest.mock("../../../services/user");
@@ -9,7 +9,8 @@ import {err, ok} from "neverthrow";
 import {User} from "../../../model/user";
 import {mockResponse} from "./util/mock";
 import {constants} from "http2";
-const {HTTP_STATUS_CREATED, HTTP_STATUS_BAD_REQUEST} = constants;
+
+const {HTTP_STATUS_CREATED, HTTP_STATUS_BAD_REQUEST, HTTP_STATUS_INTERNAL_SERVER_ERROR} = constants;
 
 describe("Register User API", () => {
   beforeEach(() => {
@@ -49,6 +50,18 @@ describe("Register User API", () => {
     await register(req, response as Response);
 
     expect(response.status).toBeCalledWith(HTTP_STATUS_BAD_REQUEST);
+    expect(response.send).toBeCalledWith(errorMessage);
+  });
+  test("Should return INTERNAL_SERVER_ERROR when unknown error", async () => {
+    const req = {body: {}} as Request;
+    const response = mockResponse();
+    const mockedCreateUser = mocked(createUser, true);
+    const errorMessage = "Unknow error";
+    mockedCreateUser.mockResolvedValue(err({code: UNKNOWN_ERROR, message: errorMessage}));
+
+    await register(req, response as Response);
+
+    expect(response.status).toBeCalledWith(HTTP_STATUS_INTERNAL_SERVER_ERROR);
     expect(response.send).toBeCalledWith(errorMessage);
   });
 });
