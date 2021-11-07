@@ -42,7 +42,7 @@ export async function validateUser(user: User): Promise<Result<string, ServiceEr
       return err({code: UserErrors.UNAUTHORIZED, message: unauthorizedMessage});
     }
 
-    return ok(Buffer.from(`${user.login}:${password}`).toString("base64"));
+    return ok(`Basic ${Buffer.from(`${user.login}:${password}`).toString("base64")}`);
   } catch (e) {
     return err({code: UserErrors.UNKNOWN_ERROR, message: `${e}`});
   }
