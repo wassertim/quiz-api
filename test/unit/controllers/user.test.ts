@@ -1,14 +1,13 @@
 import {register} from "../../../controllers/user";
 import {createUser, UNKNOWN_ERROR, USER_EXISTS, VALIDATION_ERROR} from "../../../services/user";
-import {mocked} from 'ts-jest/utils';
-
-jest.mock("../../../services/user");
-
 import {Request, Response} from "express";
 import {err, ok} from "neverthrow";
 import {User} from "../../../model/user";
 import {mockResponse} from "./util/mock";
 import {constants} from "http2";
+import {mocked} from 'ts-jest/utils';
+
+jest.mock("../../../services/user");
 
 const {HTTP_STATUS_CREATED, HTTP_STATUS_BAD_REQUEST, HTTP_STATUS_INTERNAL_SERVER_ERROR} = constants;
 
