@@ -1,6 +1,6 @@
 import {Router} from "express";
-import {addQuiz} from "../controllers/quiz";
 import {withAuth} from "../passport/verify";
+import {addQuestion} from "../controllers/question";
 
 export default Router()
-    .post("/", withAuth, addQuiz);
+    .post("/", withAuth, addQuestion);

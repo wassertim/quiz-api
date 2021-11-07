@@ -9,6 +9,9 @@ servers:
 paths:
   /users/register:
     post:
+      summary: "Register a user"
+      tags:
+        - Registration and Authentication
       operationId: createAccount
       description: Create an account
       requestBody:
@@ -32,6 +35,8 @@ paths:
                 $ref: "#/components/schemas/User"
   /users/login: #migh not be needed
     post:
+      tags:
+        - Registration and Authentication
       operationId: login
       description: User login
       requestBody:
@@ -49,6 +54,8 @@ paths:
                 $ref: "#/components/schemas/Token"
   /quiz-attempts/statistics:
     get:
+      tags:
+        - Quiz Attempts
       operationId: getQuizAttemptsStatistics
       description: Get statistics on quiz attempts
       security:
@@ -64,6 +71,8 @@ paths:
                   $ref: "#/components/schemas/QuizStatistics"
   /quiz-attempts/submit/{quizId}:
     post:
+      tags:
+        - Quiz Attempts
       operationId: submitQuizAttempt
       description: Submit a completed quiz
       parameters:
@@ -89,6 +98,8 @@ paths:
                 $ref: "#/components/schemas/QuizSubmissionResult"
   /quizzes/{quizId}:
     put:
+      tags:
+        - Quiz Templates
       operationId: editQuiz
       description: Edit a quiz
       parameters:
@@ -104,7 +115,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/QuizTemplate"
+              $ref: "#/components/schemas/Quiz"
       responses:
         401:
           $ref: "#/components/responses/UnauthorizedError"
@@ -113,9 +124,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/QuizTemplate"
+                $ref: "#/components/schemas/Quiz"
   /quizzes:
     post:
+      tags:
+        - Quiz Templates
       operationId: createQuiz
       description: Create a quiz
       security:
@@ -125,7 +138,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/QuizTemplate"
+              $ref: "#/components/schemas/Quiz"
       responses:
         401:
           $ref: "#/components/responses/UnauthorizedError"
@@ -134,8 +147,46 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/QuizTemplate"
-
+                $ref: "#/components/schemas/Quiz"
+  /questions:
+    post:
+      tags:
+        - Question Api
+      operationId: createQuestion
+      description: Create a question
+      security:
+        - basicAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Question"
+      responses:
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+        201:
+          description: Question created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Question"
+    get:
+      tags:
+        - Question Api
+      operationId: getAllQuestions
+      description: Get all questions
+      security:
+        - basicAuth: []
+      responses:
+        200:
+          description: List of questions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Question"
 components:
   responses:
     UnauthorizedError:
@@ -214,7 +265,7 @@ components:
           nullable: false
           type: boolean
           example: true
-    QuestionTemplate:
+    Question:
       type: object
       properties:
         questionText:
@@ -232,7 +283,7 @@ components:
           minItems: 2
           items:
             $ref: "#/components/schemas/Answer"
-    QuizTemplate:
+    Quiz:
       type: object
       properties:
         questions:
@@ -240,7 +291,7 @@ components:
           type: array
           minItems: 1
           items:
-            $ref: "#/components/schemas/QuestionTemplate"
+            $ref: "#/components/schemas/Question"
     Token:
       type: string
       example: Basic ZGVtbzpwQDU1dzByZA==

@@ -4,7 +4,7 @@
     "dev": "ts-node-dev server.ts",
     "build": "tsc",
     "lint": "eslint . --ext .ts",
-    "test": "jest --verbose false"
+    "test": "jest -i --verbose false"
   },
   "dependencies": {
     "@openapitools/openapi-generator-cli": "^2.4.13",

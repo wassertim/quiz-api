@@ -22,3 +22,4 @@ export const getDB = () => {
 };
 
 export const Users = () => getDB().collection("users");
+export const Questions = () => getDB().collection("questions");

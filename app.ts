@@ -1,11 +1,12 @@
 import express from "express";
 import * as path from "path";
-import user from "./routes/user";
 import cors from "cors";
-import quiz from "./routes/quiz";
 import passport from "passport";
 import {BasicStrategy} from "passport-http";
 import {verify} from "./passport/verify";
+import user from "./routes/user";
+import quiz from "./routes/quiz";
+import question from "./routes/question";
 
 export const app = express();
 
@@ -17,6 +18,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use("/users", user);
 app.use("/quizzes", quiz);
+app.use("/questions", question);
 
 passport.use(new BasicStrategy(verify));
 
