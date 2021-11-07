@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from "express";
-import {createUser} from "../services/user";
+import {createUser, UserErrors} from "../services/user";
 import {constants} from "http2";
 import {User} from "../model/user";
 
@@ -9,7 +9,7 @@ export async function register(req: Request<unknown, unknown, User>, res: Respon
   return (await createUser(req.body))
       .map(user => res.status(HTTP_STATUS_CREATED).send(user))
       .mapErr(err => {
-        if ((["USER_EXISTS", "VALIDATION_ERROR"].includes(err.code))) {
+        if (([UserErrors.USER_EXISTS, UserErrors.VALIDATION_ERROR].includes(err.code))) {
           return res.status(HTTP_STATUS_BAD_REQUEST).send(err.message);
         }
         return res.status(HTTP_STATUS_INTERNAL_SERVER_ERROR).send(err.message);

@@ -1,4 +1,4 @@
-export interface ServiceError {
-  code: string;
+export interface ServiceError<T> {
+  code: T;
   message: string;
 }

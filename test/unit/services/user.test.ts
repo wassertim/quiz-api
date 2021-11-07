@@ -1,4 +1,4 @@
-import {createUser, USER_EXISTS} from "../../../services/user";
+import {createUser, UserErrors} from "../../../services/user";
 import {Users} from "../../../db";
 import {err, ok} from "neverthrow";
 import {getMockedCollection} from "./util/mock";
@@ -23,9 +23,9 @@ describe("User Service Create User", () => {
     const mockUserCollection = getMockedCollection(Users);
     mockUserCollection.findOne = jest.fn().mockImplementation(() => ({}));
     const errObj = {
-        code: USER_EXISTS,
+        code: UserErrors.USER_EXISTS,
         message: "User with login laura already exists"
-    } as ServiceError;
+    } as ServiceError<UserErrors>;
 
     const result = await createUser(user);
 

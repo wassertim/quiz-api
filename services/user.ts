@@ -4,26 +4,26 @@ import {User} from "../model/user";
 import {Users} from "../db";
 import bcrypt from "bcrypt";
 
-export const USER_EXISTS = "USER_EXISTS";
-export const VALIDATION_ERROR = "VALIDATION_ERROR";
-export const UNKNOWN_ERROR = "UNKNOWN_ERROR";
+export enum UserErrors {
+  USER_EXISTS, VALIDATION_ERROR, UNKNOWN_ERROR
+}
 
 const saltRounds = 10;
 
 const getHash = (password: string) => bcrypt.hash(password, saltRounds);
 
-export async function createUser(user: User): Promise<Result<User, ServiceError>> {
+export async function createUser(user: User): Promise<Result<User, ServiceError<UserErrors>>> {
   const {login, password} = user;
   if (!login || !password) {
-    return err({code: VALIDATION_ERROR, message: "User data is not valid"});
+    return err({code: UserErrors.VALIDATION_ERROR, message: "User data is not valid"});
   }
   try {
     if (await Users().findOne({login})) {
-      return err({code: USER_EXISTS, message: `User with login ${login} already exists`});
+      return err({code: UserErrors.USER_EXISTS, message: `User with login ${login} already exists`});
     }
 
     return ok((await Users().insertOne({login, password: await getHash(password)})) as User);
   } catch (e) {
-    return err({code: UNKNOWN_ERROR, message: `${e}`});
+    return err({code: UserErrors.UNKNOWN_ERROR, message: `${e}`});
   }
 }

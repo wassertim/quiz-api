@@ -1,5 +1,5 @@
 import {register} from "../../../controllers/user";
-import {createUser, UNKNOWN_ERROR, USER_EXISTS, VALIDATION_ERROR} from "../../../services/user";
+import {createUser, UserErrors} from "../../../services/user";
 import {Request, Response} from "express";
 import {err, ok} from "neverthrow";
 import {User} from "../../../model/user";
@@ -32,7 +32,7 @@ describe("Register User API", () => {
     const response = mockResponse();
     const mockedCreateUser = mocked(createUser, true);
     const errorMessage = "User is invalid";
-    mockedCreateUser.mockResolvedValue(err({code: VALIDATION_ERROR, message: errorMessage}));
+    mockedCreateUser.mockResolvedValue(err({code: UserErrors.VALIDATION_ERROR, message: errorMessage}));
 
     await register(req, response as Response);
 
@@ -44,7 +44,7 @@ describe("Register User API", () => {
     const response = mockResponse();
     const mockedCreateUser = mocked(createUser, true);
     const errorMessage = "User exists";
-    mockedCreateUser.mockResolvedValue(err({code: USER_EXISTS, message: errorMessage}));
+    mockedCreateUser.mockResolvedValue(err({code: UserErrors.USER_EXISTS, message: errorMessage}));
 
     await register(req, response as Response);
 
@@ -56,7 +56,7 @@ describe("Register User API", () => {
     const response = mockResponse();
     const mockedCreateUser = mocked(createUser, true);
     const errorMessage = "Unknow error";
-    mockedCreateUser.mockResolvedValue(err({code: UNKNOWN_ERROR, message: errorMessage}));
+    mockedCreateUser.mockResolvedValue(err({code: UserErrors.UNKNOWN_ERROR, message: errorMessage}));
 
     await register(req, response as Response);
 
