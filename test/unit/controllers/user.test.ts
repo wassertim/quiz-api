@@ -1,5 +1,5 @@
-import {register} from "../../../controllers/user";
-import {createUser, UserErrors} from "../../../services/user";
+import {login, register} from "../../../controllers/user";
+import {createUser, UserErrors, validateUser} from "../../../services/user";
 import {Request, Response} from "express";
 import {err, ok} from "neverthrow";
 import {User} from "../../../model/user";
@@ -9,13 +9,8 @@ import {mocked} from 'ts-jest/utils';
 
 jest.mock("../../../services/user");
 
-const {HTTP_STATUS_CREATED, HTTP_STATUS_BAD_REQUEST, HTTP_STATUS_INTERNAL_SERVER_ERROR} = constants;
-
 describe("Register User API", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-  test("Should register a user and return OK", async () => {
+  test("Should register a user and return CREATED", async () => {
     const user = {login: "laura", password: "mypassword"} as User;
     const req = {body: user} as Request;
     const response = mockResponse();
@@ -24,7 +19,7 @@ describe("Register User API", () => {
 
     await register(req, response as Response);
 
-    expect(response.status).toBeCalledWith(HTTP_STATUS_CREATED);
+    expect(response.status).toBeCalledWith(constants.HTTP_STATUS_CREATED);
     expect(response.send).toBeCalledWith(user);
   });
   test("Should return BAD_REQUEST when validation error", async () => {
@@ -36,7 +31,7 @@ describe("Register User API", () => {
 
     await register(req, response as Response);
 
-    expect(response.status).toBeCalledWith(HTTP_STATUS_BAD_REQUEST);
+    expect(response.status).toBeCalledWith(constants.HTTP_STATUS_BAD_REQUEST);
     expect(response.send).toBeCalledWith(errorMessage);
   });
   test("Should return BAD_REQUEST when user exists", async () => {
@@ -48,7 +43,7 @@ describe("Register User API", () => {
 
     await register(req, response as Response);
 
-    expect(response.status).toBeCalledWith(HTTP_STATUS_BAD_REQUEST);
+    expect(response.status).toBeCalledWith(constants.HTTP_STATUS_BAD_REQUEST);
     expect(response.send).toBeCalledWith(errorMessage);
   });
   test("Should return INTERNAL_SERVER_ERROR when unknown error", async () => {
@@ -60,7 +55,23 @@ describe("Register User API", () => {
 
     await register(req, response as Response);
 
-    expect(response.status).toBeCalledWith(HTTP_STATUS_INTERNAL_SERVER_ERROR);
+    expect(response.status).toBeCalledWith(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR);
     expect(response.send).toBeCalledWith(errorMessage);
+  });
+});
+
+describe("Login User API", () => {
+  test("Should login user and return token", async () => {
+    const user = {login: "laura", password: "mypassword"} as User;
+    const req = {body: user} as Request;
+    const responseText = "token";
+    const response = mockResponse();
+    const mockedValidateUser = mocked(validateUser, true);
+    mockedValidateUser.mockResolvedValue(ok(responseText));
+
+    await login(req, response as Response);
+
+    expect(response.status).toHaveBeenCalledWith(constants.HTTP_STATUS_OK);
+    expect(response.send).toHaveBeenCalledWith(responseText);
   });
 });
