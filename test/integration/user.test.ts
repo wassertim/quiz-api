@@ -1,6 +1,6 @@
-import {app} from "../../../app";
+import {app} from "../../app";
 import request from "supertest";
-import {mongoConnect} from "../../../db";
+import {mongoConnect} from "../../db";
 import {Db, MongoClient} from "mongodb";
 import {constants} from "http2";
 
