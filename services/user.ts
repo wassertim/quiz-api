@@ -5,12 +5,10 @@ import {Users} from "../db";
 import bcrypt from "bcrypt";
 
 export enum UserErrors {
-  USER_EXISTS, VALIDATION_ERROR, UNKNOWN_ERROR
+  USER_EXISTS, VALIDATION_ERROR, UNKNOWN_ERROR, UNAUTHORIZED
 }
 
-const saltRounds = 10;
-
-const getHash = (password: string) => bcrypt.hash(password, saltRounds);
+const getHash = (password: string) => bcrypt.hash(password, 10);
 
 export async function createUser(user: User): Promise<Result<User, ServiceError<UserErrors>>> {
   const {login, password} = user;
@@ -23,6 +21,28 @@ export async function createUser(user: User): Promise<Result<User, ServiceError<
     }
 
     return ok((await Users().insertOne({login, password: await getHash(password)})) as User);
+  } catch (e) {
+    return err({code: UserErrors.UNKNOWN_ERROR, message: `${e}`});
+  }
+}
+
+export async function validateUser(user: User): Promise<Result<string, ServiceError<UserErrors>>> {
+  const {login, password} = user;
+  if (!login || !password) {
+    return err({code: UserErrors.VALIDATION_ERROR, message: "User data is not valid"});
+  }
+  try {
+    const foundUser = await Users().findOne({login});
+    const unauthorizedMessage = "username or password are incorrect";
+    if (!foundUser) {
+      return err({code: UserErrors.UNAUTHORIZED, message: unauthorizedMessage});
+    }
+    const isUserValid = await bcrypt.compare(password, foundUser.password);
+    if (!isUserValid) {
+      return err({code: UserErrors.UNAUTHORIZED, message: unauthorizedMessage});
+    }
+
+    return ok(Buffer.from(`${user.login}:${password}`).toString("base64"));
   } catch (e) {
     return err({code: UserErrors.UNKNOWN_ERROR, message: `${e}`});
   }
