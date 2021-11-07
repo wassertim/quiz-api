@@ -2,10 +2,7 @@ import {app} from "../../app";
 import request from "supertest";
 import {constants} from "http2";
 import {initDatabase} from "./util/init.db";
-
-async function registerUser(user: { password: string; login: string }) {
-  await request(app).post("/users/register").send(user);
-}
+import {registerUser} from "./util/api";
 
 describe("Register User API", () => {
   initDatabase();
