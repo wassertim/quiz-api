@@ -4,7 +4,7 @@ import {mongoConnect} from "../../db";
 import {Db, MongoClient} from "mongodb";
 import {constants} from "http2";
 
-describe("Register User API", () => {
+function initMongo() {
   let mongoClient: MongoClient;
   let db: Db;
   beforeAll(async () => {
@@ -24,6 +24,10 @@ describe("Register User API", () => {
       console.log(e);
     }
   });
+}
+
+describe("Register User API", () => {
+  initMongo();
   test("Should register a user", async () => {
     const response = await request(app)
         .post("/users/register")
@@ -59,3 +63,6 @@ describe("Register User API without DB", () => {
     expect(response.text).not.toBeFalsy();
   });
 });
+// describe("Login User API", () => {
+//   test("Should login user")
+// });
