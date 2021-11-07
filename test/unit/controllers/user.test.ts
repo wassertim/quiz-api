@@ -71,7 +71,21 @@ describe("Login User API", () => {
 
     await login(req, response as Response);
 
+    expect(mockedValidateUser).toHaveBeenCalledWith(user);
     expect(response.status).toHaveBeenCalledWith(constants.HTTP_STATUS_OK);
     expect(response.send).toHaveBeenCalledWith(responseText);
+  });
+  test("Should login user and return token", async () => {
+    const user = {login: "laura", password: "mypassword"} as User;
+    const req = {body: user} as Request;
+    const response = mockResponse();
+    const mockedValidateUser = mocked(validateUser, true);
+    const errorMessage = "User is invalid";
+    mockedValidateUser.mockResolvedValue(err({code: UserErrors.VALIDATION_ERROR, message: errorMessage}));
+
+    await login(req, response as Response);
+
+    expect(response.status).toHaveBeenCalledWith(constants.HTTP_STATUS_BAD_REQUEST);
+    expect(response.send).toHaveBeenCalledWith(errorMessage);
   });
 });

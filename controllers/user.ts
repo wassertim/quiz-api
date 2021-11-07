@@ -14,6 +14,6 @@ export async function register(req: Request<unknown, unknown, User>, res: Respon
 export async function login(req: Request, res: Response) {
   return (await validateUser(req.body))
       .map(token => res.status(constants.HTTP_STATUS_OK).send(token))
-      .mapErr(err => res.status(err.code).send(err.message))
+      .mapErr(err => res.status(mapToStatusCode(err.code)).send(err.message))
       .unwrapOr(() => res.status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send("Unknown Error"));
 }
