@@ -8,7 +8,7 @@ export const mongoConnect = async () => {
   _db = client.db('quiz');
   await _db.collection("users").createIndex({"login": 1}, {unique: true});
 
-  return _db;
+  return {_db, client};
 };
 
 export const getDB = () => {
