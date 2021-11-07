@@ -15,7 +15,7 @@ jobs:
           node-version: '14'
           check-latest: true
       - run: npm ci
-        env:
-          MONGO_HOST: mongo
       - name: Tests
         run: npm test
+        env:
+          MONGO_HOST: mongo
