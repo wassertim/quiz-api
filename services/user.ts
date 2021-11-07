@@ -33,7 +33,7 @@ export async function validateUser(user: User): Promise<Result<string, ServiceEr
   }
   try {
     const foundUser = await Users().findOne({login});
-    const unauthorizedMessage = "username or password are incorrect";
+    const unauthorizedMessage = "Username or password are incorrect";
     if (!foundUser) {
       return err({code: UserErrors.UNAUTHORIZED, message: unauthorizedMessage});
     }
