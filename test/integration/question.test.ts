@@ -24,8 +24,8 @@ describe("Questions API", () => {
               "isCorrect": true
             },
             {
-              "text": "42",
-              "isCorrect": true
+              "text": "41",
+              "isCorrect": false
             }
           ]
         });
