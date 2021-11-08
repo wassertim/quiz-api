@@ -147,46 +147,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Quiz"
-  /questions:
-    post:
-      tags:
-        - Question Api
-      operationId: createQuestion
-      description: Create a question
-      security:
-        - basicAuth: []
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Question"
-      responses:
-        401:
-          $ref: "#/components/responses/UnauthorizedError"
-        201:
-          description: Question created
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Question"
-    get:
-      tags:
-        - Question Api
-      operationId: getAllQuestions
-      description: Get all questions
-      security:
-        - basicAuth: []
-      responses:
-        200:
-          description: List of questions
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Question"
+                $ref: "#/components/schemas/Quiz"  
 components:
   responses:
     UnauthorizedError:

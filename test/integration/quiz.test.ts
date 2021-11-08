@@ -10,13 +10,30 @@ describe("Register User API", () => {
   beforeEach(() => {
     return registerUser(user);
   });
-  test("Should create a question", async () => {
+  test("Should create a quiz", async () => {
     const token = await login(user);
     const response = await request(app)
-        .post("/questions")
+        .post("/quizzes")
         .set({Authorization: token})
-        .send({});
+        .send({
+          "questions": [
+            {
+              "questionText": "what is the answer to life the universe and everything",
+              "questionScore": 5,
+              "answers": [
+                {
+                  "text": "42",
+                  "isCorrect": true
+                },
+                {
+                  "text": "41",
+                  "isCorrect": false
+                }
+              ]
+            }
+          ]
+        });
 
-    expect(response.statusCode).toBe(constants.HTTP_STATUS_OK);
+    expect(response.statusCode).toBe(constants.HTTP_STATUS_CREATED);
   });
 });
