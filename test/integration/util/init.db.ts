@@ -1,6 +1,13 @@
 import {Db, MongoClient} from "mongodb";
 import {mongoConnect} from "../../../db";
 
+async function deleteCollections(db: Db) {
+  const collectionsToDelete = (await db.collections()).filter(c => !c.collectionName.includes("system."));
+  for (let i = 0; i < collectionsToDelete.length; i++) {
+    await collectionsToDelete[i].deleteMany({});
+  }
+}
+
 export function initDatabase() {
   let mongoClient: MongoClient;
   let db: Db;
@@ -10,9 +17,7 @@ export function initDatabase() {
     db = _db;
   });
   beforeEach(async () => {
-    (await db.collections())
-        .filter(c => !c.collectionName.includes("system."))
-        .forEach((c) => c.deleteMany({}));
+    await deleteCollections(db);
   });
   afterAll(async () => {
     try {
