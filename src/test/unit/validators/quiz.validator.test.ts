@@ -1,5 +1,4 @@
 import { err, ok } from "neverthrow";
-import { Question } from "../../../model/question.model";
 import { QuizErrors } from "../../../types/errors";
 import { validate } from "../../../validators/quiz.validator";
 
@@ -17,6 +16,7 @@ describe("Quiz Validator", () => {
     });
     test("Should return an ok with value when valid quiz", async () => {
         const quiz = {
+            createdBy: "laura",
             questions: [
                 {
                     questionText: "Some text",
@@ -28,6 +28,7 @@ describe("Quiz Validator", () => {
 
         expect(result).toStrictEqual(
             ok({
+                createdBy: "laura",
                 questions: [
                     {
                         questionText: "Some text",

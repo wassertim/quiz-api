@@ -6,7 +6,7 @@ info:
 servers:
   - url: http://localhost:5050
     description: local
-paths:
+paths:    
   /users/register:
     post:
       summary: "Register a user"
@@ -96,7 +96,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/QuizSubmissionResult"
-  /quizzes/{quizId}:
+  /profiles/{login}/quizzes/{quizId}:
     put:
       tags:
         - Quiz Templates
@@ -108,6 +108,11 @@ paths:
           required: true
           schema:
             $ref: "#/components/schemas/UUID"
+        - in: path
+          name: login
+          required: true
+          schema:
+            type: string
       security:
         - basicAuth: []
       requestBody:
@@ -124,13 +129,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Quiz"
-  /quizzes:
+                $ref: "#/components/schemas/Quiz"  
+  /profiles/{login}/quizzes:
     post:
       tags:
         - Quiz Templates
       operationId: createQuiz
       description: Create a quiz
+      parameters:
+        - in: path
+          name: login
+          required: true
+          schema:
+            type: string
       security:
         - basicAuth: []
       requestBody:

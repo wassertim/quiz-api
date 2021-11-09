@@ -16,6 +16,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "client/build")));
 
 app.use("/users", user);
-app.use("/quizzes", quiz);
+app.use("/profiles/:login/quizzes", quiz);
 
 passport.use(new BasicStrategy(verify));

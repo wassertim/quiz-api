@@ -4,3 +4,4 @@ import {withAuth} from "../middleware/passport";
 
 export default Router()
     .post("/", withAuth, addQuiz);
+    // .put("/:quizId/", withAuth, editQuiz);

@@ -13,11 +13,11 @@ describe("Quiz API", () => {
         return registerUser(user);
     });
     test("Should create a quiz", async () => {
-        const [method, path] = ["post" as Operation, "/quizzes"];
+        const [method, path] = ["post" as Operation, "/profiles/{login}/quizzes"];
         const token = await login(user);
 
         const response = await request(app)
-            [method](path)
+            [method](path.replace("{login}", user.login))
             .set({ Authorization: token })
             .send({
                 questions: [
@@ -43,11 +43,11 @@ describe("Quiz API", () => {
         expect(response.body.createdBy).toBe(user.login);
     });
     test("Should give an error when invalid quiz", async () => {
-        const [method, path] = ["post" as Operation, "/quizzes"];
+        const [method, path] = ["post" as Operation, "/profiles/{login}/quizzes"];
         const token = await login(user);
 
         const response = await request(app)
-            [method](path)
+            [method](path.replace("{login}", user.login))
             .set({ Authorization: token })
             .send({
                 questions: [
