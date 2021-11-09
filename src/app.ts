@@ -16,6 +16,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "client/build")));
 
 app.use("/users", user);
-app.use("/profiles/:login/quizzes", quiz);
+app.use("/profiles/:login/quizzes", function(req,res,next){
+    (req as any).baseUrlParams = {login:req.params.login};
+    next();
+  }, quiz);
 
 passport.use(new BasicStrategy(verify));

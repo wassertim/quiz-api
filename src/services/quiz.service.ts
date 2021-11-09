@@ -19,3 +19,19 @@ export async function createQuiz(quiz: Quiz) {
 
     return validationResult;
 }
+
+export async function editQuiz(quiz: Quiz) {
+    const validationResult = validate(quiz);
+    if (validationResult.isOk()) {
+        try {
+            const validQuiz = validationResult.value;
+            const result = await Quizzes().updateOne({ _id: quiz.id, createdBy: quiz.createdBy }, { $set: validQuiz });
+
+            return ok(validQuiz);
+        } catch (e) {
+            return err({ code: QuizErrors.UNKNOWN_ERROR, message: e + "" });
+        }
+    }
+
+    return validationResult;
+}

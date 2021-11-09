@@ -9,6 +9,7 @@ export const mongoConnect = async () => {
     const client = await MongoClient.connect(uri);
     _db = client.db("quiz");
     await _db.collection("users").createIndex({ login: 1 }, { unique: true });
+    await _db.collection("quizzes").createIndex({ createdBy: 1 }, { unique: false });
 
     return { _db, client };
 };
