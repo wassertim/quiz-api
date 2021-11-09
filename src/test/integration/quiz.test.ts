@@ -6,7 +6,7 @@ import { constants } from "http2";
 import { Operation } from "express-openapi-validate/dist/OpenApiDocument";
 import { openapi } from "./util/openapi";
 
-describe("Register User API", () => {
+describe("Quiz API", () => {
     initDatabase();
     const user = { login: "laura", password: "mypassword" };
     beforeEach(() => {
@@ -40,5 +40,29 @@ describe("Register User API", () => {
         
         expect(openapi.validateResponse(method, path)(response)).toBeUndefined();
         expect(response.statusCode).toBe(constants.HTTP_STATUS_CREATED);
+    });
+    test("Should give an error when invalid quiz", async () => {
+        const [method, path] = ["post" as Operation, "/quizzes"];
+        const token = await login(user);
+
+        const response = await request(app)
+            [method](path)
+            .set({ Authorization: token })
+            .send({
+                questions: [
+                    {                        
+                        questionScore: 5,
+                        answers: [
+                            {
+                                text: "42",
+                                isCorrect: true
+                            },
+                        ],
+                    },
+                ],
+            });
+        
+        expect(openapi.validateResponse(method, path)(response)).toBeUndefined();
+        expect(response.statusCode).toBe(constants.HTTP_STATUS_BAD_REQUEST);
     });
 });
