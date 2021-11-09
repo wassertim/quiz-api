@@ -13,6 +13,7 @@ import { Question } from './question.model';
 
 
 export interface Quiz {
+    createdBy?: string;
     questions?: Array<Question>;
 }
 

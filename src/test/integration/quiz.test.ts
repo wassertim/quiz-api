@@ -27,19 +27,20 @@ describe("Quiz API", () => {
                         answers: [
                             {
                                 text: "42",
-                                isCorrect: true
+                                isCorrect: true,
                             },
                             {
                                 text: "41",
-                                isCorrect: false
+                                isCorrect: false,
                             },
                         ],
                     },
                 ],
             });
-        
+
         expect(openapi.validateResponse(method, path)(response)).toBeUndefined();
         expect(response.statusCode).toBe(constants.HTTP_STATUS_CREATED);
+        expect(response.body.createdBy).toBe(user.login);
     });
     test("Should give an error when invalid quiz", async () => {
         const [method, path] = ["post" as Operation, "/quizzes"];
@@ -50,18 +51,18 @@ describe("Quiz API", () => {
             .set({ Authorization: token })
             .send({
                 questions: [
-                    {                        
+                    {
                         questionScore: 5,
                         answers: [
                             {
                                 text: "42",
-                                isCorrect: true
+                                isCorrect: true,
                             },
                         ],
                     },
                 ],
             });
-        
+
         expect(openapi.validateResponse(method, path)(response)).toBeUndefined();
         expect(response.statusCode).toBe(constants.HTTP_STATUS_BAD_REQUEST);
         expect(response.text).toBe('"questions[0].questionText" is required');
