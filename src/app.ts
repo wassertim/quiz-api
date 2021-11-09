@@ -3,9 +3,9 @@ import * as path from "path";
 import cors from "cors";
 import passport from "passport";
 import { BasicStrategy } from "passport-http";
-import { verify } from "./passport/verify";
-import user from "./routes/user";
-import quiz from "./routes/quiz";
+import { verify } from "./middleware/passport";
+import user from "./routes/user.route";
+import quiz from "./routes/quiz.route";
 
 export const app = express();
 

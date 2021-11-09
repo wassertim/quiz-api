@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Quiz } from "../model/quiz";
 import { constants } from "http2";
-import { createQuiz } from "../services/quiz";
+import { createQuiz } from "../services/quiz.service";
 
 export async function addQuiz(req: Request<unknown, unknown, Quiz>, res: Response<Quiz | string>) {
     return (await createQuiz(req.body))

@@ -1,4 +1,4 @@
-import { UserErrors } from "../services/user";
+import { UserErrors } from "../services/user.service";
 import { constants } from "http2";
 
 const userErrorToHttpStatusCode: Record<number, number> = {};

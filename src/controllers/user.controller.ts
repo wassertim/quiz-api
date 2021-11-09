@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createUser, validateUser } from "../services/user";
+import { createUser, validateUser } from "../services/user.service";
 import { constants } from "http2";
 import { User } from "../model/user";
 import { mapToStatusCode } from "./userErrorsMapper";

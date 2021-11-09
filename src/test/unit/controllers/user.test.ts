@@ -1,5 +1,5 @@
-import { login, register } from "../../../controllers/user";
-import { createUser, UserErrors, validateUser } from "../../../services/user";
+import { login, register } from "../../../controllers/user.controller";
+import { createUser, UserErrors, validateUser } from "../../../services/user.service";
 import { Request, Response } from "express";
 import { err, ok } from "neverthrow";
 import { User } from "../../../model/user";
@@ -7,7 +7,7 @@ import { mockResponse } from "./util/mock";
 import { constants } from "http2";
 import { mocked } from "ts-jest/utils";
 
-jest.mock("../../../services/user");
+jest.mock("../../../services/user.service");
 
 describe("Register User API", () => {
     test("Should register a user and return CREATED", async () => {

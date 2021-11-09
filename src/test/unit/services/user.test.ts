@@ -1,4 +1,4 @@
-import { createUser, UserErrors, validateUser } from "../../../services/user";
+import { createUser, UserErrors, validateUser } from "../../../services/user.service";
 import { Users } from "../../../db";
 import { err, ok } from "neverthrow";
 import { getMockedCollection } from "./util/mock";

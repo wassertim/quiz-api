@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {register, login} from "../controllers/user";
+import {register, login} from "../controllers/user.controller";
 
 export default Router()
     .post("/register", register)
