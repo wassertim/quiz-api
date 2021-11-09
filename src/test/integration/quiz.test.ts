@@ -64,5 +64,6 @@ describe("Quiz API", () => {
         
         expect(openapi.validateResponse(method, path)(response)).toBeUndefined();
         expect(response.statusCode).toBe(constants.HTTP_STATUS_BAD_REQUEST);
+        expect(response.text).toBe('"questions[0].questionText" is required');
     });
 });
