@@ -1,6 +1,6 @@
 import request from "supertest";
 import { app } from "../../../app";
-import { User } from "../../../model/user";
+import { User } from "../../../model/user.model";
 
 export async function registerUser(user: User) {
     await request(app).post("/users/register").send(user);

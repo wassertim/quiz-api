@@ -2,7 +2,7 @@ import { login, register } from "../../../controllers/user.controller";
 import { createUser, UserErrors, validateUser } from "../../../services/user.service";
 import { Request, Response } from "express";
 import { err, ok } from "neverthrow";
-import { User } from "../../../model/user";
+import { User } from "../../../model/user.model";
 import { mockResponse } from "./util/mock";
 import { constants } from "http2";
 import { mocked } from "ts-jest/utils";

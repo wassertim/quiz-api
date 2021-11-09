@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { Question } from "../../model/question";
+import { Question } from "../../model/question.model";
 import { answerSchema } from "./answer.schema";
 
 export const questionSchema = Joi.object<Question>({

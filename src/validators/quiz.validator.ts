@@ -1,5 +1,5 @@
 import { err, ok } from "neverthrow";
-import { Quiz } from "../model/quiz";
+import { Quiz } from "../model/quiz.model";
 import { QuizErrors } from "../types/errors";
 import { quizSchema } from "./schemas/quiz.schema";
 

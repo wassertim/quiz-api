@@ -1,5 +1,5 @@
 import { err, ok } from "neverthrow";
-import { Question } from "../../../model/question";
+import { Question } from "../../../model/question.model";
 import { QuizErrors } from "../../../types/errors";
 import { validate } from "../../../validators/quiz.validator";
 

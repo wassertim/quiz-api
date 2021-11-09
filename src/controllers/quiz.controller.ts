@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Quiz } from "../model/quiz";
+import { Quiz } from "../model/quiz.model";
 import { constants } from "http2";
 import { createQuiz } from "../services/quiz.service";
 import { QuizErrors } from "../types/errors";
