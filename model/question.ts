@@ -15,7 +15,7 @@ import { Answer } from './answer';
 export interface Question {
     id?: string;
     questionText?: string;
-    questionScore?: number;
+    questionScore?: number;    
     answers?: Array<Answer>;
 }
 
