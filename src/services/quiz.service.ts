@@ -1,3 +1,4 @@
+import { ObjectId, ReturnDocument } from "mongodb";
 import { err, ok } from "neverthrow";
 import { Quizzes } from "../db";
 import { Quiz } from "../model/quiz.model";
@@ -20,14 +21,20 @@ export async function createQuiz(quiz: Quiz) {
     return validationResult;
 }
 
-export async function editQuiz(quiz: Quiz) {
+export async function editQuiz(quizId: string, quiz: Quiz) {
     const validationResult = validate(quiz);
     if (validationResult.isOk()) {
         try {
             const validQuiz = validationResult.value;
-            const result = await Quizzes().updateOne({ _id: quiz.id, createdBy: quiz.createdBy }, { $set: validQuiz });
-
-            return ok(validQuiz);
+            const result = await Quizzes().findOneAndUpdate(
+                { _id: ObjectId.createFromHexString(quizId), createdBy: quiz.createdBy },
+                { $set: validQuiz },
+                { returnDocument: ReturnDocument.AFTER }
+            );
+            if (result.ok) {
+                return ok(result.value as Quiz);
+            }
+            return err({ code: QuizErrors.UNKNOWN_ERROR, message: `Could not update the quiz at id ${quizId}` });
         } catch (e) {
             return err({ code: QuizErrors.UNKNOWN_ERROR, message: e + "" });
         }

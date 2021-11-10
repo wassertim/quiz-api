@@ -77,31 +77,51 @@ describe("Edit Quiz API", () => {
     test("Should update a quiz", async () => {
         const [method, path] = ["put" as Operation, "/profiles/{login}/quizzes/{quizId}"];
         const token = await login(user);
-        const { id } = await createQuiz(user.login, token);
+        const originalQuiz = {
+            questions: [
+                {
+                    questionText: "what is the answer to life the universe and everything",
+                    questionScore: 5,
+                    answers: [
+                        {
+                            text: "2",
+                            isCorrect: true,
+                        },
+                        {
+                            text: "15",
+                            isCorrect: false,
+                        },
+                    ],
+                },
+            ],
+        };
+        const { id } = await createQuiz(user.login, token, originalQuiz);
+        const updatedQuiz = {
+            questions: [
+                {
+                    questionText: "what is the answer to life the universe and everything",
+                    questionScore: 5,
+                    answers: [
+                        {
+                            text: "42",
+                            isCorrect: true,
+                        },
+                        {
+                            text: "41",
+                            isCorrect: false,
+                        },
+                    ],
+                },
+            ],
+        };
 
         const response = await request(app)
             [method](path.replace("{login}", user.login).replace("{quizId}", id))
             .set({ Authorization: token })
-            .send({                
-                questions: [
-                    {                        
-                        questionText: "what is the answer to life the universe and everything",
-                        questionScore: 5,
-                        answers: [
-                            {
-                                text: "42",
-                                isCorrect: true,
-                            },
-                            {
-                                text: "41",
-                                isCorrect: false,
-                            },
-                        ],
-                    },
-                ],
-            });
+            .send(updatedQuiz);
 
         expect(openapi.validateResponse(method, path)(response)).toBeUndefined();
-        expect(response.statusCode).toBe(constants.HTTP_STATUS_OK);        
+        expect(response.statusCode).toBe(constants.HTTP_STATUS_OK);
+        expect(response.body.questions[0].answers[0].text).toBe(updatedQuiz.questions[0].answers[0].text);
     });
 });
