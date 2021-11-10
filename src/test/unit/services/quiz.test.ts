@@ -31,13 +31,13 @@ describe("Quiz Service Create Quiz", () => {
         };
         const mockUserCollection = getMockedCollection(Quizzes);
         mockUserCollection.insertOne = jest.fn().mockImplementation(() => ({ ...quiz, insertedId: 42 }));
-        mocked(validate).mockReturnValue(ok(quiz));        
+        mocked(validate).mockReturnValue(ok(quiz));
 
         const result = await createQuiz(quiz);
 
         expect(result).toStrictEqual(ok({ ...quiz, id: "42" }));
     });
-    test("Should return err when no invalid quiz", async () => {
+    test("Should return err when invalid quiz", async () => {
         const quiz = {};
         const mockUserCollection = getMockedCollection(Quizzes);
         mockUserCollection.insertOne = jest.fn().mockImplementation(() => ({ ...quiz, insertedId: 42 }));
