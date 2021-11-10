@@ -52,35 +52,28 @@ paths:
             text/plain:
               schema:
                 $ref: "#/components/schemas/Token"
-  /quiz-attempts/statistics:
+  /quiz-attempts:
     get:
       tags:
         - Quiz Attempts
-      operationId: getQuizAttemptsStatistics
-      description: Get statistics on quiz attempts
+      operationId: getQuizSubmissionResults
+      description: Get all quiz attempts
       security:
         - basicAuth: []
       responses:
         200:
-          description: "Basic stats on quiz attempts/completion/scores/etc..."
+          description: "All quiz attempts"
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/QuizStatistics"
-  /quiz-attempts/submit/{quizId}:
+                  $ref: "#/components/schemas/QuizSubmissionResult"
     post:
       tags:
         - Quiz Attempts
       operationId: submitQuizAttempt
       description: Submit a completed quiz
-      parameters:
-        - in: path
-          name: quizId
-          required: true
-          schema:
-            $ref: "#/components/schemas/UUID"
       security:
         - basicAuth: []
       requestBody:
@@ -195,7 +188,7 @@ components:
         answers:
           type: array
           items:
-            $ref: "#/components/schemas/UUID"
+            type: integer
     QuizSubmission:
       type: object
       properties:
