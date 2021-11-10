@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { err, ok } from "neverthrow";
+import { ok } from "neverthrow";
 import { mockResponse } from "./util/mock";
 import { constants } from "http2";
 import { mocked } from "ts-jest/utils";

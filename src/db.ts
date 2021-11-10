@@ -24,4 +24,4 @@ export const getDB = () => {
 
 export const Users = () => getDB().collection("users");
 export const Quizzes = () => getDB().collection("quizzes");
-export const QuizzAttempts = () => getDB().collection("quiz-attempts");
+export const QuizAttempts = () => getDB().collection("quiz-attempts");

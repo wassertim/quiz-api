@@ -1,5 +1,5 @@
 import { err, ok } from "neverthrow";
-import { QuizzAttempts } from "../db";
+import { QuizAttempts } from "../db";
 import { QuizSubmission } from "../model";
 import { QuizErrors } from "../types/errors";
 import { quizSubmissionSchema } from "../validators/quiz-attempt.validator";
@@ -12,7 +12,7 @@ export async function createQuizAttempt(quiz: QuizSubmission) {
 
     try {
         const validQuizSubmission = validationResult.value;
-        const result = await QuizzAttempts().insertOne(validQuizSubmission);
+        const result = await QuizAttempts().insertOne(validQuizSubmission);
 
         return ok({ ...validQuizSubmission, id: result.insertedId + "" });
     } catch (e) {
