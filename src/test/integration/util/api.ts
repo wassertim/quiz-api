@@ -14,5 +14,24 @@ export async function login(user: User) {
 export async function createQuiz(login: string, token: string, quiz: Quiz) {
     const response = await request(app).post(`/profiles/${login}/quizzes`).set({ Authorization: token }).send(quiz);
 
-    return response.body;
+    return response.body as Quiz;
 }
+
+export const testQuiz = {
+    questions: [
+        {
+            questionText: "what is the answer to life the universe and everything",
+            questionScore: 5,
+            answers: [
+                {
+                    text: "42",
+                    isCorrect: true,
+                },
+                {
+                    text: "41",
+                    isCorrect: false,
+                },
+            ],
+        },
+    ],
+} as Quiz;

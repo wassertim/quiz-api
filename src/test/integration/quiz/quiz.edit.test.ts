@@ -56,7 +56,7 @@ describe("Edit Quiz API", () => {
         };
 
         const response = await request(app)
-            [method](path.replace("{login}", user.login).replace("{quizId}", id))
+            [method](path.replace("{login}", user.login).replace("{quizId}", id!))
             .set({ Authorization: token })
             .send(updatedQuiz);
 
@@ -108,7 +108,7 @@ describe("Edit Quiz API", () => {
         };
 
         const response = await request(app)
-            [method](path.replace("{login}", user.login).replace("{quizId}", id))
+            [method](path.replace("{login}", user.login).replace("{quizId}", id!))
             .set({ Authorization: anotherToken })
             .send(updatedQuiz);
 

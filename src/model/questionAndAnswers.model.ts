@@ -12,7 +12,7 @@
 
 
 export interface QuestionAndAnswers { 
-    questionId?: string;
-    answers?: Array<string>;
+    questionIndex?: number;
+    answerIndicies?: Array<number>;
 }
 

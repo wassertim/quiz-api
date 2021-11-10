@@ -83,7 +83,7 @@ paths:
             schema:
               $ref: "#/components/schemas/QuizSubmission"
       responses:
-        200:
+        201:
           description: Quiz submitted
           content:
             application/json:
@@ -183,9 +183,9 @@ components:
     QuestionAndAnswers:
       type: object
       properties:
-        questionId:
-          $ref: "#/components/schemas/UUID"
-        answers:
+        questionIndex:
+          type: integer
+        answerIndicies:
           type: array
           items:
             type: integer
