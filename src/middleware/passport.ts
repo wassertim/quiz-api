@@ -11,4 +11,4 @@ export const verify: BasicVerifyFunction = async (login, password, done) => {
       .unwrapOr(() => done(null, false));
 };
 
-export const withAuth = passport.authenticate('basic', { session: false });
+export const withAuthentication = passport.authenticate('basic', { session: false });
