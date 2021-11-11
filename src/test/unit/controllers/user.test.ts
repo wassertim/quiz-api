@@ -1,4 +1,4 @@
-import { login, register } from "../../../controllers/user.controller";
+import { login, register } from "../../../controllers/users.controller";
 import { createUser, UserErrors, validateUser } from "../../../services/user.service";
 import { Request, Response } from "express";
 import { err, ok } from "neverthrow";
