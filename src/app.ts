@@ -4,7 +4,7 @@ import cors from "cors";
 import passport from "passport";
 import { BasicStrategy } from "passport-http";
 import { verify } from "./middleware/passport";
-import { quizRouter, userRoute, quizAttemptRoute, quizStatisticsRoute } from "./routes";
+import { quizRouter, userRoute, quizSubmissionsRoute, quizStatisticsRoute } from "./routes";
 import { loginParams } from "./middleware/login.params";
 
 export const app = express();
@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, "client/build")));
 
 app.use("/users", userRoute);
 app.use("/profiles/:login/quizzes", loginParams, quizRouter);
-app.use("/quiz-submissions", quizAttemptRoute);
+app.use("/quiz-submissions", quizSubmissionsRoute);
 app.use("/quiz-statistics", quizStatisticsRoute)
 
 passport.use(new BasicStrategy(verify));

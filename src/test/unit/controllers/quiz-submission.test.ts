@@ -3,20 +3,20 @@ import { ok } from "neverthrow";
 import { mockResponse } from "./util/mock";
 import { constants } from "http2";
 import { mocked } from "ts-jest/utils";
-import { createQuizAttempt } from "../../../services/quiz-attempt.service";
-import { submitQuizAttempt } from "../../../controllers/quiz-attempt.controller";
+import { insertQuizSubmission } from "../../../services/quiz-submissions.service";
+import { postQuizSubmission } from "../../../controllers/quiz-submissions.controller";
 
-jest.mock("../../../services/quiz-attempt.service");
+jest.mock("../../../services/quiz-submissions.service");
 
 describe("Quiz API", () => {
     test("Should return created", async () => {
         const quizSubmission = {};
         const req = { body: quizSubmission, user: { login: "laura" } as any } as Request;
         const response = mockResponse();
-        const mockedCreateQuizAttempt = mocked(createQuizAttempt, true);
+        const mockedCreateQuizAttempt = mocked(insertQuizSubmission, true);
         mockedCreateQuizAttempt.mockResolvedValue(ok(quizSubmission));
 
-        await submitQuizAttempt(req, response as Response);
+        await postQuizSubmission(req, response as Response);
 
         expect(response.status).toBeCalledWith(constants.HTTP_STATUS_CREATED);
         expect(response.send).toBeCalledWith(quizSubmission);

@@ -1,7 +1,7 @@
 import { ok } from "neverthrow";
-import { QuizAttempts } from "../../../db";
+import { QuizSubmissions } from "../../../db";
 import { getMockedCollection } from "./util/mock";
-import { createQuizAttempt } from "../../../services/quiz-attempt.service";
+import { insertQuizSubmission } from "../../../services/quiz-submissions.service";
 
 jest.mock("../../../db");
 jest.mock("../../../validators/quiz.validator");
@@ -11,10 +11,10 @@ describe("Quiz Submission Service", () => {
         const quizSubmission = {
             quizId: "618c05f4236ff44323b8dd9e",
         };
-        const mockUserCollection = getMockedCollection(QuizAttempts);
+        const mockUserCollection = getMockedCollection(QuizSubmissions);
         mockUserCollection.insertOne = jest.fn().mockImplementation(() => ({ ...quizSubmission, insertedId: 42 }));        
 
-        const result = await createQuizAttempt(quizSubmission);
+        const result = await insertQuizSubmission(quizSubmission);
 
         expect(result).toStrictEqual(ok({ ...quizSubmission, id: "42" }));
     });

@@ -1,13 +1,13 @@
 import { ObjectId } from "bson";
 import { err, ok } from "neverthrow";
-import { QuizAttempts, Quizzes } from "../db";
+import { QuizSubmissions, Quizzes } from "../db";
 import { buildStatistics } from "../reducers/quiz.statistics.reducer";
 import { QuizErrors } from "../types/errors";
 
 export async function findQuizStatistics(quizId: string) {    
     try {        
         const quiz = await Quizzes().findOne({_id: ObjectId.createFromHexString(quizId)});
-        const quizAttempts = (await (await QuizAttempts().find({quizId}).toArray())).map((qs: any) => {
+        const quizAttempts = (await (await QuizSubmissions().find({quizId}).toArray())).map((qs: any) => {
             return {...qs, id: qs._id + ""};
         });
 

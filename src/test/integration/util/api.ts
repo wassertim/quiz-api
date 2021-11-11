@@ -18,7 +18,7 @@ export async function createQuiz(login: string, token: string, quiz: Quiz) {
 }
 
 export async function submitQuiz(quizSubmission: QuizSubmission) {
-    const response = await request(app).post("/quiz-attempts").send(quizSubmission);
+    const response = await request(app).post("/quiz-submissions").send(quizSubmission);
 
     return response.body;
 }
