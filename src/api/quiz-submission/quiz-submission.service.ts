@@ -2,19 +2,12 @@ import { err, ok } from "neverthrow";
 import { QuizSubmissions } from "../../db";
 import { QuizSubmission } from "../../model";
 import { QuizErrors } from "../../types/errors";
-import { quizSubmissionSchema } from "./quiz-submission.schema";
 
-export async function insertQuizSubmission(quiz: QuizSubmission) {
-    const validationResult = quizSubmissionSchema.validate(quiz);
-    if (validationResult.error) {
-        return err({ code: QuizErrors.VALIDATION_ERROR, message: validationResult.error.message });
-    }
+export async function insertQuizSubmission(quiz: QuizSubmission) {        
+    try {        
+        const result = await QuizSubmissions().insertOne(quiz);
 
-    try {
-        const validQuizSubmission = validationResult.value;
-        const result = await QuizSubmissions().insertOne(validQuizSubmission);
-
-        return ok({ ...validQuizSubmission, id: result.insertedId + "" });
+        return ok({ ...quiz, id: result.insertedId + "" } as QuizSubmission);
     } catch (e) {
         return err({ code: QuizErrors.UNKNOWN_ERROR, message: e + "" });
     }
