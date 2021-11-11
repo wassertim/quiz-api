@@ -55,7 +55,7 @@ paths:
   /quiz-statistics/{quizId}:
     get:
       tags:
-        - Quiz Attempts
+        - Quiz Statistics
       operationId: getQuizSubmissionResults
       description: Get all quiz attempts
       responses:
@@ -271,6 +271,11 @@ components:
     Quiz:
       type: object
       properties:
+        _id:
+          $ref: "#/components/schemas/ObjectId"
+        createdBy:
+          type: string
+          example: laura
         questions:
           nullable: false
           type: array

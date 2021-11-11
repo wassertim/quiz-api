@@ -6,7 +6,7 @@ import { ApiError, ServiceError } from "../../errors/errors";
 
 export async function createQuiz(quiz: Quiz) {
     try {
-        const result = await Quizzes().insertOne(quiz);
+        const result = await Quizzes().insertOne({...quiz});
 
         return ok({ ...quiz, id: result.insertedId + "" } as Quiz);
     } catch (e) {
@@ -16,13 +16,12 @@ export async function createQuiz(quiz: Quiz) {
 
 export async function editQuiz(quizId: string, quiz: Quiz) {
     try {
-        const result = await Quizzes().findOneAndUpdate(
+        const result = await Quizzes().updateOne(
             { _id: ObjectId.createFromHexString(quizId), createdBy: quiz.createdBy },
-            { $set: quiz },
-            { returnDocument: ReturnDocument.AFTER }
+            { $set: quiz }            
         );
-        if (result.ok) {
-            return ok(result.value as Quiz);
+        if (result.modifiedCount > 0) {
+            return ok({...quiz, id: quizId});
         }
         return err({
             code: ApiError.UNKNOWN_ERROR,
