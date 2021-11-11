@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getQuizStatistics } from "../controllers/quiz-statistics.controller";
+import { getQuizStatistics } from "./quiz-statistics.controller";
 
 export const quizStatisticsRoute = Router()
     .get("/:quizId", getQuizStatistics);

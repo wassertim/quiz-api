@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { postQuizSubmission } from "../controllers/quiz-submissions.controller";
+import { postQuizSubmission } from "./quiz-submission.controller";
 
 export const quizSubmissionsRoute = Router()
     .post("/", postQuizSubmission);

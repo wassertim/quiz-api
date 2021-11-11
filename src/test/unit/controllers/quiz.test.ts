@@ -3,11 +3,11 @@ import { err, ok } from "neverthrow";
 import { mockResponse } from "./util/mock";
 import { constants } from "http2";
 import { mocked } from "ts-jest/utils";
-import { addQuiz } from "../../../controllers/quiz.controller";
-import { createQuiz } from "../../../services/quiz.service";
+import { addQuiz } from "../../../api/quiz/quiz.controller";
+import { createQuiz } from "../../../api/quiz/quiz.service";
 import { QuizErrors } from "../../../types/errors";
 
-jest.mock("../../../services/quiz.service");
+jest.mock("../../../api/quiz/quiz.service");
 
 describe("Quiz API", () => {
     test("Should return created", async () => {

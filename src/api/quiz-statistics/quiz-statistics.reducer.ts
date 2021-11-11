@@ -1,4 +1,4 @@
-import { Question, Quiz, QuizSubmission } from "../model";
+import { Question, Quiz, QuizSubmission } from "../../model";
 
 function equalsIgnoreOrder(a: number[], b: number[]) {
     if (a.length !== b.length) return false;

@@ -1,7 +1,7 @@
 import { err, ok, Result } from "neverthrow";
-import { ServiceError } from "../types/errors";
-import { User } from "../model/user.model";
-import { Users } from "../db";
+import { ServiceError } from "../../types/errors";
+import { User } from "../../model/user.model";
+import { Users } from "../../db";
 import bcrypt from "bcrypt";
 
 export enum UserErrors {

@@ -1,6 +1,6 @@
 import { err, ok } from "neverthrow";
 import { Quizzes } from "../../../db";
-import { createQuiz } from "../../../services/quiz.service";
+import { createQuiz } from "../../../api/quiz/quiz.service";
 import { QuizErrors } from "../../../types/errors";
 import { getMockedCollection } from "./util/mock";
 import { validate } from "../../../validators/quiz.validator";

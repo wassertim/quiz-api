@@ -4,7 +4,7 @@ import cors from "cors";
 import passport from "passport";
 import { BasicStrategy } from "passport-http";
 import { verify } from "./middleware/passport";
-import { quizRouter, usersRoute, quizSubmissionsRoute, quizStatisticsRoute } from "./routes";
+import { quizRouter, usersRoute, quizSubmissionsRoute, quizStatisticsRoute } from "./api/routes";
 import { loginParams } from "./middleware/login.params";
 
 export const app = express();

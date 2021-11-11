@@ -1,9 +1,9 @@
 import { ObjectId, ReturnDocument } from "mongodb";
 import { err, ok } from "neverthrow";
-import { Quizzes } from "../db";
-import { Quiz } from "../model/quiz.model";
-import { QuizErrors } from "../types/errors";
-import { validate } from "../validators/quiz.validator";
+import { Quizzes } from "../../db";
+import { Quiz } from "../../model/quiz.model";
+import { QuizErrors } from "../../types/errors";
+import { validate } from "../../validators/quiz.validator";
 
 export async function createQuiz(quiz: Quiz) {
     const validationResult = validate(quiz);

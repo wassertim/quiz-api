@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { Quiz, User } from "../model";
+import { Quiz, User } from "../../model";
 import { constants } from "http2";
-import { createQuiz, editQuiz } from "../services/quiz.service";
-import { QuizErrors } from "../types/errors";
+import { createQuiz, editQuiz } from "./quiz.service";
+import { QuizErrors } from "../../types/errors";
 
 const codeMap = {} as Record<QuizErrors, number>;
 codeMap[QuizErrors.VALIDATION_ERROR] = constants.HTTP_STATUS_BAD_REQUEST;

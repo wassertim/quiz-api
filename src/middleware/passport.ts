@@ -1,5 +1,5 @@
 import {BasicVerifyFunction} from "passport-http";
-import {validateUser} from "../services/user.service";
+import {validateUser} from "../api/user/user.service";
 import passport from "passport";
 
 export const verify: BasicVerifyFunction = async (login, password, done) => {
