@@ -11,7 +11,7 @@ describe("Quiz Submission Service", () => {
             quizId: "618c05f4236ff44323b8dd9e",
         };
         const mockUserCollection = getMockedCollection(QuizSubmissions);
-        mockUserCollection.insertOne = jest.fn().mockImplementation(() => ({ ...quizSubmission, insertedId: 42 }));        
+        mockUserCollection.insertOne = jest.fn().mockImplementation(() => ({ ...quizSubmission, insertedId: 42 }));
 
         const result = await insertQuizSubmission(quizSubmission);
 

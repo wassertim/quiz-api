@@ -19,8 +19,7 @@ describe("Create Quiz API", () => {
         const token = await login(user);
         const {id} = await createQuiz(user.login, token, testQuiz);
 
-        const response = await request(app)
-            [method](path)            
+        const response = await request(app)[method](path)            
             .send({
                 quizId: id,
                 questionsAndAnswers: [{questionIndex: 0, answerIndicies: [0]}]                

@@ -16,8 +16,7 @@ describe("Create Quiz API", () => {
         const [method, path] = ["post" as Operation, "/profiles/{login}/quizzes"];
         const token = await login(user);
 
-        const response = await request(app)
-            [method](path.replace("{login}", user.login))
+        const response = await request(app)[method](path.replace("{login}", user.login))
             .set({ Authorization: token })
             .send({
                 questions: [
@@ -46,8 +45,7 @@ describe("Create Quiz API", () => {
         const [method, path] = ["post" as Operation, "/profiles/{login}/quizzes"];
         const token = await login(user);
 
-        const response = await request(app)
-            [method](path.replace("{login}", user.login))
+        const response = await request(app)[method](path.replace("{login}", user.login))
             .set({ Authorization: token })
             .send({
                 questions: [

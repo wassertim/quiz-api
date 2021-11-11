@@ -11,5 +11,5 @@ export const getValidator = <T>(schema: Joi.ObjectSchema<T>) => {
         req.body = validationResult.value;
     
         return next();
-    }
+    };
 };

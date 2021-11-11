@@ -18,7 +18,7 @@ describe("Quiz Statistics API", () => {
         const [method, path] = ["get" as Operation, "/quiz-statistics/{quizId}"];
         const token = await login(user);
         const { id } = await createQuiz(user.login, token, testQuiz);
-        const a = await submitQuiz({
+        await submitQuiz({
             quizId: id,
             questionsAndAnswers: [{ questionIndex: 0, answerIndicies: [0] }],
         } as QuizSubmission);
