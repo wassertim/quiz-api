@@ -3,10 +3,10 @@ import { ok } from "neverthrow";
 import { mockResponse } from "./util/mock";
 import { constants } from "http2";
 import { mocked } from "ts-jest/utils";
-import { insertQuizSubmission } from "../../../services/quiz-submissions.service";
+import { insertQuizSubmission } from "../../../services/quiz-submission.service";
 import { postQuizSubmission } from "../../../controllers/quiz-submissions.controller";
 
-jest.mock("../../../services/quiz-submissions.service");
+jest.mock("../../../services/quiz-submission.service");
 
 describe("Quiz API", () => {
     test("Should return created", async () => {

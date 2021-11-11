@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { QuizSubmission, QuizSubmissionResult, User } from "../model";
 import { constants } from "http2";
-import { insertQuizSubmission } from "../services/quiz-submissions.service";
+import { insertQuizSubmission } from "../services/quiz-submission.service";
 import { QuizErrors } from "../types/errors";
 
 const codeMap = {} as Record<QuizErrors, number>;

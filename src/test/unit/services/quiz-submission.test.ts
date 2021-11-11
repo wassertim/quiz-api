@@ -1,7 +1,7 @@
 import { ok } from "neverthrow";
 import { QuizSubmissions } from "../../../db";
 import { getMockedCollection } from "./util/mock";
-import { insertQuizSubmission } from "../../../services/quiz-submissions.service";
+import { insertQuizSubmission } from "../../../services/quiz-submission.service";
 
 jest.mock("../../../db");
 jest.mock("../../../validators/quiz.validator");
