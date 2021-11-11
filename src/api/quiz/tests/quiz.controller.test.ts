@@ -6,12 +6,13 @@ import { mocked } from "ts-jest/utils";
 import { addQuiz } from "../quiz.controller";
 import { createQuiz } from "../quiz.service";
 import { ApiError } from "../../../errors/errors";
+import { Quiz } from "../../../model";
 
 jest.mock("../../../api/quiz/quiz.service");
 
 describe("Quiz API", () => {
     test("Should return created", async () => {
-        const quiz = {};
+        const quiz = {} as Quiz;
         const req = { body: quiz, user: { login: "laura" } as any } as Request;
         const response = mockResponse();
         const mockedCreateQuiz = mocked(createQuiz, true);

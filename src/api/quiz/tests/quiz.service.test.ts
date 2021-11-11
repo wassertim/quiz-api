@@ -2,6 +2,7 @@ import { ok } from "neverthrow";
 import { Quizzes } from "../../../db";
 import { createQuiz } from "../../../api/quiz/quiz.service";
 import { getMockedCollection } from "../../../test/mongo.mock";
+import { Quiz } from "../../../model";
 
 jest.mock("../../../db");
 jest.mock("../../../api/quiz/quiz.schema");
@@ -25,7 +26,7 @@ describe("Quiz Service Create Quiz", () => {
                     ],
                 },
             ],
-        };
+        } as Quiz;
         const mockUserCollection = getMockedCollection(Quizzes);
         mockUserCollection.insertOne = jest.fn().mockImplementation(() => ({ ...quiz, insertedId: 42 }));
 

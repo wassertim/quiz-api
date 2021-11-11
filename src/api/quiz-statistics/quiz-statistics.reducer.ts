@@ -1,4 +1,4 @@
-import { Question, Quiz, QuizSubmission } from "../../model";
+import { Question, Quiz, QuizStatistics, QuizSubmission, QuizSubmissionResult } from "../../model";
 
 function equalsIgnoreOrder(a: number[], b: number[]) {
     if (a.length !== b.length) return false;
@@ -18,9 +18,9 @@ function getCorrectIndicies(quizQuestion: Question) {
     return quizQuestion.answers?.filter((a) => a.isCorrect).map((a, i) => i);
 }
 
-export function buildStatistics(quiz: Quiz, submissions: QuizSubmission[]) {
+export function buildStatistics(quiz: Quiz, submissions: QuizSubmission[]): QuizStatistics {
     const submissionsStat = submissions.map((quizSubmission) => {
-        const questionsAndAnswers = quiz.questions?.map((quizQuestion, index) => {
+        const questionsAndAnswers = quiz.questions.map((quizQuestion, index) => {
             const qa = quizSubmission.questionsAndAnswers?.find((qa) => qa.questionIndex === index);
             const isCorrect = qa && equalsIgnoreOrder(qa.answerIndicies!, getCorrectIndicies(quizQuestion)!);
             const completed = !!qa;
@@ -39,14 +39,12 @@ export function buildStatistics(quiz: Quiz, submissions: QuizSubmission[]) {
             questionsAndAnswers,
             scoreTotal: questionsAndAnswers?.reduce((acc, e) => e.score! + acc, 0),
             correctAnswersCount: questionsAndAnswers?.reduce((acc, e) => (e.isCorrect ? acc + 1 : acc), 0),
-        };
+        } as QuizSubmissionResult;
     });
 
-    const stat = {
+    return {
         quizId: quiz.id,
         totalSubmissions: submissionsStat.length,
         submissionsStat: submissionsStat,
     };
-
-    return stat;
 }

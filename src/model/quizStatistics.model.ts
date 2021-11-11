@@ -14,6 +14,7 @@ import { QuizSubmissionResult } from './quizSubmissionResult.model';
 
 export interface QuizStatistics { 
     quizId?: string;
-    attempts?: Array<QuizSubmissionResult>;
+    totalSubmissions: number;
+    submissionsStat: QuizSubmissionResult[]
 }
 
