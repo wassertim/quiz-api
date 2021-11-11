@@ -6,4 +6,4 @@ import { validateQuiz } from "./quiz.validator";
 
 export const quizRouter = Router()
     .post("/", withAuth, validateQuiz, addQuiz)
-    .put("/:quizId/", withAuth, authorize, validateQuiz, updateQuiz);
+    .put("/:quizId/", validateQuiz, withAuth, authorize, updateQuiz);
