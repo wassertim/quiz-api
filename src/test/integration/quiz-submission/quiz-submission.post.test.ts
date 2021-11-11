@@ -1,11 +1,12 @@
 import { initDatabase } from "../util/init.db";
-import { createQuiz, login, registerUser, testQuiz } from "../util/api";
+import { createQuiz, login, registerUser } from "../util/api";
 import request from "supertest";
 import { app } from "../../../app";
 import { constants } from "http2";
 import { Operation } from "express-openapi-validate/dist/OpenApiDocument";
 import { openapi } from "../util/openapi";
 import { QuizSubmission } from "../../../model";
+import { testQuiz } from "../util/mock.data";
 
 describe("Create Quiz API", () => {
     initDatabase();
@@ -19,7 +20,7 @@ describe("Create Quiz API", () => {
         const {id} = await createQuiz(user.login, token, testQuiz);
 
         const response = await request(app)
-            [method](path.replace("{login}", user.login))            
+            [method](path)            
             .send({
                 quizId: id,
                 questionsAndAnswers: [{questionIndex: 0, answerIndicies: [0]}]                

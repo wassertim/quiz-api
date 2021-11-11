@@ -1,6 +1,6 @@
 import request from "supertest";
 import { app } from "../../../app";
-import { Quiz } from "../../../model";
+import { Quiz, QuizSubmission } from "../../../model";
 import { User } from "../../../model/user.model";
 
 export async function registerUser(user: User) {
@@ -17,21 +17,8 @@ export async function createQuiz(login: string, token: string, quiz: Quiz) {
     return response.body as Quiz;
 }
 
-export const testQuiz = {
-    questions: [
-        {
-            questionText: "what is the answer to life the universe and everything",
-            questionScore: 5,
-            answers: [
-                {
-                    text: "42",
-                    isCorrect: true,
-                },
-                {
-                    text: "41",
-                    isCorrect: false,
-                },
-            ],
-        },
-    ],
-} as Quiz;
+export async function submitQuiz(quizSubmission: QuizSubmission) {
+    const response = await request(app).post("/quiz-attempts").send(quizSubmission);
+
+    return response.body;
+}

@@ -52,7 +52,7 @@ paths:
             text/plain:
               schema:
                 $ref: "#/components/schemas/Token"
-  /quiz-attempts:
+  /quiz-statistics/{quizId}:
     get:
       tags:
         - Quiz Attempts
@@ -66,9 +66,8 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/QuizSubmissionResult"
+                $ref: "#/components/schemas/QuizStatistics"
+  /quiz-attempts:
     post:
       tags:
         - Quiz Attempts
@@ -201,21 +200,25 @@ components:
     QuestionResult:
       type: object
       properties:
-        questionId:
-          $ref: "#/components/schemas/UUID"
+        questionIndex:
+          type: integer
         score:
           nullable: false
           type: integer
           example: 5
-        selectedAnswerIds:
+        selectedAnswerIndicies:
           nullable: false
           type: array
           items:
-            $ref: "#/components/schemas/UUID"
+            type: integer
     QuizSubmissionResult:
       type: object
       properties:
-        quizId:
+        score:
+          type: integer  
+        completion:
+          type: string   
+        quizSubmissionId:
           $ref: "#/components/schemas/UUID"
         questionResults:
           type: array

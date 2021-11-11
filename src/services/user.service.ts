@@ -57,7 +57,7 @@ export async function validateUser(user: User): Promise<Result<string, ServiceEr
                 message: unauthorizedMessage,
             });
         }
-        const isUserValid = await bcrypt.compare(password, foundUser.password);
+        const isUserValid = await bcrypt.compare(password, foundUser.password!);
         if (!isUserValid) {
             return err({
                 code: UserErrors.UNAUTHORIZED,

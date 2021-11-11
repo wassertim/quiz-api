@@ -1,4 +1,5 @@
 import { MongoClient, Db } from "mongodb";
+import { Quiz, QuizSubmission, User } from "./model";
 import { config } from "dotenv";
 config();
 
@@ -22,6 +23,6 @@ export const getDB = () => {
     }
 };
 
-export const Users = () => getDB().collection("users");
-export const Quizzes = () => getDB().collection("quizzes");
-export const QuizAttempts = () => getDB().collection("quiz-attempts");
+export const Users = () => getDB().collection<User>("users");
+export const Quizzes = () => getDB().collection<Quiz>("quizzes");
+export const QuizAttempts = () => getDB().collection<QuizSubmission>("quiz-attempts");
