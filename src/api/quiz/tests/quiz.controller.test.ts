@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { err, ok } from "neverthrow";
-import { mockResponse } from "../express.mock";
+import { mockResponse } from "../../../test/express.mock";
 import { constants } from "http2";
 import { mocked } from "ts-jest/utils";
-import { addQuiz } from "../../../api/quiz/quiz.controller";
-import { createQuiz } from "../../../api/quiz/quiz.service";
+import { addQuiz } from "../quiz.controller";
+import { createQuiz } from "../quiz.service";
 import { QuizErrors } from "../../../types/errors";
 
 jest.mock("../../../api/quiz/quiz.service");

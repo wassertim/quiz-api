@@ -1,5 +1,5 @@
 import { Quiz, QuizSubmission } from "../../../model";
-import { buildStatistics } from "../../../api/quiz-statistics/quiz-statistics.reducer";
+import { buildStatistics } from "../quiz-statistics.reducer";
 
 const quiz: Quiz = {
     id: "asdf",

@@ -1,7 +1,7 @@
 import { ok } from "neverthrow";
 import { Quizzes } from "../../../db";
 import { createQuiz } from "../../../api/quiz/quiz.service";
-import { getMockedCollection } from "../mongo.mock";
+import { getMockedCollection } from "../../../test/mongo.mock";
 
 jest.mock("../../../db");
 jest.mock("../../../api/quiz/quiz.schema");

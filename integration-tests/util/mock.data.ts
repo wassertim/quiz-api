@@ -1,4 +1,4 @@
-import { Quiz } from "../../../model";
+import { Quiz } from "../../src/model";
 
 export const testQuiz = {
     questions: [

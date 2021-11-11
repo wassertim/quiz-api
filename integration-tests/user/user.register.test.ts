@@ -1,4 +1,4 @@
-import { app } from "../../../app";
+import { app } from "../../src/app";
 import request from "supertest";
 import { constants } from "http2";
 import { initDatabase } from "../util/init.db";

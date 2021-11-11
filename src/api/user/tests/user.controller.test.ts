@@ -1,9 +1,9 @@
-import { login, register } from "../../../api/user/user.controller";
-import { createUser, UserErrors, validateUser } from "../../../api/user/user.service";
+import { login, register } from "../user.controller";
+import { createUser, UserErrors, validateUser } from "../user.service";
 import { Request, Response } from "express";
 import { err, ok } from "neverthrow";
 import { User } from "../../../model/user.model";
-import { mockResponse } from "../express.mock";
+import { mockResponse } from "../../../test/express.mock";
 import { constants } from "http2";
 import { mocked } from "ts-jest/utils";
 

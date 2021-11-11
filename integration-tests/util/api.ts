@@ -1,7 +1,7 @@
 import request from "supertest";
-import { app } from "../../../app";
-import { Quiz, QuizSubmission } from "../../../model";
-import { User } from "../../../model/user.model";
+import { app } from "../../src/app";
+import { Quiz, QuizSubmission } from "../../src/model";
+import { User } from "../../src/model/user.model";
 
 export async function registerUser(user: User) {
     await request(app).post("/users/register").send(user);

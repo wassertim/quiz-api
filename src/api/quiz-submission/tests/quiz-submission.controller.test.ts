@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { ok } from "neverthrow";
-import { mockResponse } from "../express.mock";
+import { mockResponse } from "../../../test/express.mock";
 import { constants } from "http2";
 import { mocked } from "ts-jest/utils";
-import { insertQuizSubmission } from "../../../api/quiz-submission/quiz-submission.service";
-import { postQuizSubmission } from "../../../api/quiz-submission/quiz-submission.controller";
+import { insertQuizSubmission } from "../quiz-submission.service";
+import { postQuizSubmission } from "../quiz-submission.controller";
 
 jest.mock("../../../api/quiz-submission/quiz-submission.service");
 

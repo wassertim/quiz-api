@@ -2,7 +2,7 @@ import { Operation } from "express-openapi-validate/dist/OpenApiDocument";
 import { createQuiz, login, registerUser } from "../util/api";
 import { initDatabase } from "../util/init.db";
 import request from "supertest";
-import { app } from "../../../app";
+import { app } from "../../src/app";
 import { openapi } from "../util/openapi";
 import { constants } from "http2";
 

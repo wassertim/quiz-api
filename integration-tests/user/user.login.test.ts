@@ -1,5 +1,5 @@
 import { constants } from "http2";
-import { app } from "../../../app";
+import { app } from "../../src/app";
 import { registerUser } from "../util/api";
 import { initDatabase } from "../util/init.db";
 import request from "supertest";

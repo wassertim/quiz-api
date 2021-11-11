@@ -1,5 +1,5 @@
 import { Db, MongoClient } from "mongodb";
-import { mongoConnect } from "../../../db";
+import { mongoConnect } from "../../src/db";
 
 async function deleteCollections(db: Db) {
     const collectionsToDelete = (await db.collections()).filter((c) => !c.collectionName.includes("system."));

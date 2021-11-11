@@ -1,11 +1,11 @@
 import { initDatabase } from "../util/init.db";
 import { createQuiz, login, registerUser } from "../util/api";
 import request from "supertest";
-import { app } from "../../../app";
+import { app } from "../../src/app";
 import { constants } from "http2";
 import { Operation } from "express-openapi-validate/dist/OpenApiDocument";
 import { openapi } from "../util/openapi";
-import { QuizSubmission } from "../../../model";
+import { QuizSubmission } from "../../src/model";
 import { testQuiz } from "../util/mock.data";
 
 describe("Create Quiz API", () => {
