@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ok } from "neverthrow";
-import { mockResponse } from "./util/mock";
+import { mockResponse } from "../express.mock";
 import { constants } from "http2";
 import { mocked } from "ts-jest/utils";
 import { insertQuizSubmission } from "../../../api/quiz-submission/quiz-submission.service";

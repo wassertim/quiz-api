@@ -1,7 +1,7 @@
 import { createUser, UserErrors } from "../../../api/user/user.service";
 import { Users } from "../../../db";
 import { err, ok } from "neverthrow";
-import { getMockedCollection } from "./util/mock";
+import { getMockedCollection } from "../mongo.mock";
 import { ServiceError } from "../../../types/errors";
 
 jest.mock("bcrypt");
