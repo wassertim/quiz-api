@@ -6,6 +6,7 @@ import { mocked } from "ts-jest/utils";
 import { addQuiz } from "../../../api/quiz/quiz.controller";
 import { createQuiz } from "../../../api/quiz/quiz.service";
 import { QuizErrors } from "../../../types/errors";
+import { Quiz } from "../../../model";
 
 jest.mock("../../../api/quiz/quiz.service");
 

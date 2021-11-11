@@ -14,5 +14,4 @@ const questionSchema = Joi.object<Question>({
 
 export const quizSchema = Joi.object<Quiz>({
     questions: Joi.array().min(1).items(questionSchema).required(),
-    createdBy: Joi.string().required(),
 });
