@@ -8,6 +8,7 @@
     "test:dev": "jest -i --verbose false --watchAll"
   },
   "pre-commit": [
+    "lint",
     "test"
   ],
   "dependencies": {
