@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, "client/build")));
 
 app.use("/users", userRoute);
 app.use("/profiles/:login/quizzes", loginParams, quizRouter);
-app.use("/quiz-attempts", quizAttemptRoute);
+app.use("/quiz-submissions", quizAttemptRoute);
 app.use("/quiz-statistics", quizStatisticsRoute)
 
 passport.use(new BasicStrategy(verify));

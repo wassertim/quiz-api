@@ -58,8 +58,6 @@ paths:
         - Quiz Attempts
       operationId: getQuizSubmissionResults
       description: Get all quiz attempts
-      security:
-        - basicAuth: []
       responses:
         200:
           description: "All quiz attempts"
@@ -67,14 +65,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/QuizStatistics"
-  /quiz-attempts:
+  /quiz-submissions:
     post:
       tags:
-        - Quiz Attempts
-      operationId: submitQuizAttempt
+        - Quiz Submissions
+      operationId: submitQuiz
       description: Submit a completed quiz
-      security:
-        - basicAuth: []
       requestBody:
         required: true
         content:

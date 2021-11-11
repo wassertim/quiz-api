@@ -15,7 +15,7 @@ describe("Create Quiz API", () => {
         return registerUser(user);
     });
     test("Should submit a solved quiz", async () => {
-        const [method, path] = ["post" as Operation, "/quiz-attempts"];
+        const [method, path] = ["post" as Operation, "/quiz-submissions"];
         const token = await login(user);
         const {id} = await createQuiz(user.login, token, testQuiz);
 
