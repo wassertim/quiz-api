@@ -1,6 +1,9 @@
 export interface QuestionResult { 
     questionId?: string;
-    score?: number;
-    selectedAnswerIds?: Array<string>;
+    score: number;
+    questionIndex: number;
+    isCorrect: boolean;
+    questionText: string;
+    completed: boolean;
 }
 

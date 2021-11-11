@@ -5,4 +5,6 @@ export interface QuizSubmissionResult {
     totalQuestionsInQuiz: number;
     totalCompletedQuestions: number;
     questionsAndAnswers: QuestionResult[];
+    scoreTotal: number;
+    correctAnswersCount: number;
 }

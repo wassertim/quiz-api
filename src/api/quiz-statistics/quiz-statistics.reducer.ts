@@ -1,4 +1,4 @@
-import { Question, Quiz, QuizStatistics, QuizSubmission, QuizSubmissionResult } from "../../model";
+import { Question, QuestionResult, Quiz, QuizStatistics, QuizSubmission, QuizSubmissionResult } from "../../model";
 
 function equalsIgnoreOrder(a: number[], b: number[]) {
     if (a.length !== b.length) return false;
@@ -22,24 +22,28 @@ export function buildStatistics(quiz: Quiz, submissions: QuizSubmission[]): Quiz
     const submissionsStat = submissions.map((quizSubmission) => {
         const questionsAndAnswers = quiz.questions.map((quizQuestion, index) => {
             const qa = quizSubmission.questionsAndAnswers?.find((qa) => qa.questionIndex === index);
-            const isCorrect = qa && equalsIgnoreOrder(qa.answerIndicies!, getCorrectIndicies(quizQuestion)!);
+            const isCorrect = !!qa && equalsIgnoreOrder(qa.answerIndicies!, getCorrectIndicies(quizQuestion)!);
             const completed = !!qa;
-            return {
+            const questionResult: QuestionResult = {
                 questionIndex: index,
                 questionText: quizQuestion.questionText,
                 isCorrect,
                 completed,
                 score: isCorrect ? quizQuestion.questionScore : 0,
             };
+
+            return questionResult;
         });
-        return {
-            id: quizSubmission.id,
+        const quizSubmissionResult: QuizSubmissionResult = {
+            id: quizSubmission.id!,
             totalQuestionsInQuiz: quiz.questions?.length,
-            totalCompletedQuestions: quizSubmission.questionsAndAnswers?.length,
+            totalCompletedQuestions: quizSubmission.questionsAndAnswers.length,
             questionsAndAnswers,
             scoreTotal: questionsAndAnswers?.reduce((acc, e) => e.score! + acc, 0),
             correctAnswersCount: questionsAndAnswers?.reduce((acc, e) => (e.isCorrect ? acc + 1 : acc), 0),
-        } as QuizSubmissionResult;
+        };
+
+        return quizSubmissionResult;
     });
 
     return {
