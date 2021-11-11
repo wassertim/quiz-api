@@ -95,7 +95,7 @@ paths:
           name: quizId
           required: true
           schema:
-            $ref: "#/components/schemas/UUID"
+            $ref: "#/components/schemas/ObjectId"
         - in: path
           name: login
           required: true
@@ -170,8 +170,10 @@ components:
       type: object
       properties:
         quizId:
-          $ref: "#/components/schemas/UUID"
-        attempts:
+          $ref: "#/components/schemas/ObjectId"
+        totalSubmissions:
+          type: integer
+        submissionsStat:
           type: array
           items:
             $ref: "#/components/schemas/QuizSubmissionResult"
@@ -188,7 +190,7 @@ components:
       type: object
       properties:
         quizId:
-          $ref: "#/components/schemas/UUID"
+          $ref: "#/components/schemas/ObjectId"
         questionsAndAnswers:
           type: array
           items:
@@ -198,31 +200,44 @@ components:
       properties:
         questionIndex:
           type: integer
+          example: 0
         score:
           nullable: false
           type: integer
           example: 5
-        selectedAnswerIndicies:
-          nullable: false
-          type: array
-          items:
-            type: integer
+        isCorrect:
+          type: boolean
+          example: true
+        questionText:
+          type: string
+          example: some question
+        completed:
+          type: boolean
+          example: true
     QuizSubmissionResult:
       type: object
       properties:
-        score:
+        id:
+          $ref: "#/components/schemas/ObjectId"
+        totalQuestionsInQuiz:
+          type: integer
+          example: 2
+        totalCompletedQuestions:
+          type: integer
+          example: 1
+        scoreTotal:
           type: integer  
         completion:
           type: string   
-        quizSubmissionId:
-          $ref: "#/components/schemas/UUID"
-        questionResults:
+        correctAnswersCount:
+          type: integer
+        questionsAndAnswers:
           type: array
           items:
             $ref: "#/components/schemas/QuestionResult"
-    UUID:
+    ObjectId:
       type: string
-      example: 5197EE1E-ACF4-4DDC-89EE-467A60CF1DCA
+      example: 507f1f77bcf86cd799439011
     Answer:
       type: object
       properties:

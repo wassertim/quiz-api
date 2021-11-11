@@ -1,5 +1,4 @@
-export interface QuestionResult { 
-    questionId?: string;
+export interface QuestionResult {     
     score: number;
     questionIndex: number;
     isCorrect: boolean;
