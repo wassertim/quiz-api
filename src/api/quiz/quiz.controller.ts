@@ -4,7 +4,7 @@ import { constants } from "http2";
 import { createQuiz, editQuiz } from "./quiz.service";
 import { mapToStatusCode } from "../../errors/error.mapper";
 
-export async function addQuiz(req: Request<unknown, unknown, Quiz>, res: Response<Quiz | string>) {
+export async function postQuiz(req: Request<unknown, unknown, Quiz>, res: Response<Quiz | string>) {
     const { login } = <User>req.user;
     return (await createQuiz({ ...req.body, createdBy: login! }))
         .map((quiz) => {
@@ -17,7 +17,7 @@ export async function addQuiz(req: Request<unknown, unknown, Quiz>, res: Respons
         .unwrapOr(() => res.status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send("Unknown Error"));
 }
 
-export async function updateQuiz(req: Request<Record<string, string>, unknown, Quiz>, res: Response<Quiz | string>) {
+export async function putQuiz(req: Request<Record<string, string>, unknown, Quiz>, res: Response<Quiz | string>) {
     return (await editQuiz(req.params.quizId, { ...req.body, createdBy: (<User>req.user).login! }))
         .map((quiz) => res.status(constants.HTTP_STATUS_OK).send(quiz))
         .mapErr((err) => res.status(mapToStatusCode(err.code)).send(err.message))

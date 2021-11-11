@@ -3,7 +3,7 @@ import { err, ok } from "neverthrow";
 import { mockResponse } from "../../../test/express.mock";
 import { constants } from "http2";
 import { mocked } from "ts-jest/utils";
-import { addQuiz } from "../quiz.controller";
+import { postQuiz } from "../quiz.controller";
 import { createQuiz } from "../quiz.service";
 import { ApiError } from "../../../errors/errors";
 import { Quiz } from "../../../model";
@@ -18,7 +18,7 @@ describe("Quiz API", () => {
         const mockedCreateQuiz = mocked(createQuiz, true);
         mockedCreateQuiz.mockResolvedValue(ok(quiz));
 
-        await addQuiz(req, response as Response);
+        await postQuiz(req, response as Response);
 
         expect(response.status).toBeCalledWith(constants.HTTP_STATUS_CREATED);
         expect(response.send).toBeCalledWith(quiz);
@@ -32,7 +32,7 @@ describe("Quiz API", () => {
             err({ code: ApiError.VALIDATION_ERROR, message: "Some validation error" })
         );
 
-        await addQuiz(req, response as Response);
+        await postQuiz(req, response as Response);
 
         expect(response.status).toBeCalledWith(constants.HTTP_STATUS_BAD_REQUEST);
         expect(response.send).toBeCalledWith("Some validation error");
