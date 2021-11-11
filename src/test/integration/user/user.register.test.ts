@@ -28,12 +28,6 @@ describe("Register User API", () => {
         expect(response.statusCode).toBe(constants.HTTP_STATUS_BAD_REQUEST);
         expect(response.text).toBe("User with login laura already exists");
     });
-    test("Should return an error when validation fails", async () => {
-        const response = await request(app).post("/users/register").send({ password: "mypassword" });
-
-        expect(response.statusCode).toBe(constants.HTTP_STATUS_BAD_REQUEST);
-        expect(response.text).toBe("User data is not valid");
-    });
 });
 describe("Register User API without DB", () => {
     test("Should return an error when on exception", async () => {

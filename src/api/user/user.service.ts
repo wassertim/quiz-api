@@ -15,12 +15,6 @@ const getHash = (password: string) => bcrypt.hash(password, 10);
 
 export async function createUser(user: User): Promise<Result<User, ServiceError<UserErrors>>> {
     const { login, password } = user;
-    if (!login || !password) {
-        return err({
-            code: UserErrors.VALIDATION_ERROR,
-            message: "User data is not valid",
-        });
-    }
     try {
         if (await Users().findOne({ login })) {
             return err({
@@ -29,12 +23,9 @@ export async function createUser(user: User): Promise<Result<User, ServiceError<
             });
         }
 
-        return ok(
-            (await Users().insertOne({
-                login,
-                password: await getHash(password),
-            })) as User
-        );
+        await Users().insertOne({ login, password: await getHash(password) });
+        
+        return ok(user);
     } catch (e) {
         return err({ code: UserErrors.UNKNOWN_ERROR, message: `${e}` });
     }
@@ -42,12 +33,6 @@ export async function createUser(user: User): Promise<Result<User, ServiceError<
 
 export async function validateUser(user: User): Promise<Result<string, ServiceError<UserErrors>>> {
     const { login, password } = user;
-    if (!login || !password) {
-        return err({
-            code: UserErrors.VALIDATION_ERROR,
-            message: "User data is not valid",
-        });
-    }
     try {
         const foundUser = await Users().findOne({ login });
         const unauthorizedMessage = "Username or password are incorrect";

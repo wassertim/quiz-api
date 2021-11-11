@@ -20,7 +20,7 @@ describe("Login User API", () => {
         const response = await request(app).post("/users/login").send({ login: "laura" });
 
         expect(response.statusCode).toBe(constants.HTTP_STATUS_BAD_REQUEST);
-        expect(response.text).toBe("User data is not valid");
+        expect(response.text).toBe('"password" is required');
     });
     test("Should return UNAUTHORIZED when password is wrong", async () => {
         const { login } = user;

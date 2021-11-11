@@ -12,6 +12,6 @@
 
 
 export interface User {
-    login?: string;
-    password?: string;
+    login: string;
+    password: string;
 }
