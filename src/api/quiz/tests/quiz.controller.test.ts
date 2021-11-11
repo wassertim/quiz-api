@@ -5,7 +5,7 @@ import { constants } from "http2";
 import { mocked } from "ts-jest/utils";
 import { addQuiz } from "../quiz.controller";
 import { createQuiz } from "../quiz.service";
-import { QuizErrors } from "../../../types/errors";
+import { ApiError } from "../../../types/errors";
 
 jest.mock("../../../api/quiz/quiz.service");
 
@@ -28,7 +28,7 @@ describe("Quiz API", () => {
         const response = mockResponse();
         const mockedCreateQuiz = mocked(createQuiz, true);
         mockedCreateQuiz.mockResolvedValue(
-            err({ code: QuizErrors.VALIDATION_ERROR, message: "Some validation error" })
+            err({ code: ApiError.VALIDATION_ERROR, message: "Some validation error" })
         );
 
         await addQuiz(req, response as Response);

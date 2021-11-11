@@ -1,9 +1,11 @@
-export interface ServiceError<T> {
-  code: T;
+export interface ServiceError {
+  code: ApiError;
   message: string;
 }
 
-export enum QuizErrors {
-  UNKNOWN_ERROR,
+export enum ApiError {
+  ENTITY_EXISTS,
   VALIDATION_ERROR,
+  UNKNOWN_ERROR,
+  UNAUTHORIZED,
 }

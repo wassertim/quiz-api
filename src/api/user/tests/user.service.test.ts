@@ -1,8 +1,8 @@
-import { createUser, UserErrors } from "../../../api/user/user.service";
+import { createUser } from "../../../api/user/user.service";
 import { Users } from "../../../db";
 import { err, ok } from "neverthrow";
 import { getMockedCollection } from "../../../test/mongo.mock";
-import { ServiceError } from "../../../types/errors";
+import { ApiError, ServiceError } from "../../../types/errors";
 
 jest.mock("bcrypt");
 jest.mock("../../../db");
@@ -24,9 +24,9 @@ describe("User Service Create User", () => {
         const mockUserCollection = getMockedCollection(Users);
         mockUserCollection.findOne = jest.fn().mockImplementation(() => ({}));
         const errObj = {
-            code: UserErrors.USER_EXISTS,
+            code: ApiError.ENTITY_EXISTS,
             message: "User with login laura already exists",
-        } as ServiceError<UserErrors>;
+        } as ServiceError;
 
         const result = await createUser(user);
 

@@ -2,7 +2,7 @@ import { ObjectId, ReturnDocument } from "mongodb";
 import { err, ok } from "neverthrow";
 import { Quizzes } from "../../db";
 import { Quiz } from "../../model/quiz.model";
-import { QuizErrors, ServiceError } from "../../types/errors";
+import { ApiError, ServiceError } from "../../types/errors";
 
 export async function createQuiz(quiz: Quiz) {
     try {
@@ -10,7 +10,7 @@ export async function createQuiz(quiz: Quiz) {
 
         return ok({ ...quiz, id: result.insertedId + "" } as Quiz);
     } catch (e) {
-        return err({ code: QuizErrors.UNKNOWN_ERROR, message: e + "" } as ServiceError<QuizErrors>);
+        return err({ code: ApiError.UNKNOWN_ERROR, message: e + "" } as ServiceError);
     }
 }
 
@@ -25,10 +25,10 @@ export async function editQuiz(quizId: string, quiz: Quiz) {
             return ok(result.value as Quiz);
         }
         return err({
-            code: QuizErrors.UNKNOWN_ERROR,
+            code: ApiError.UNKNOWN_ERROR,
             message: `Could not update the quiz at id ${quizId}`,
-        } as ServiceError<QuizErrors>);
+        } as ServiceError);
     } catch (e) {
-        return err({ code: QuizErrors.UNKNOWN_ERROR, message: e + "" } as ServiceError<QuizErrors>);
+        return err({ code: ApiError.UNKNOWN_ERROR, message: e + "" } as ServiceError);
     }
 }

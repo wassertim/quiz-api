@@ -1,11 +1,12 @@
 import { login, register } from "../user.controller";
-import { createUser, UserErrors, validateUser } from "../user.service";
+import { createUser, validateUser } from "../user.service";
 import { Request, Response } from "express";
 import { err, ok } from "neverthrow";
 import { User } from "../../../model/user.model";
 import { mockResponse } from "../../../test/express.mock";
 import { constants } from "http2";
 import { mocked } from "ts-jest/utils";
+import { ApiError } from "../../../types/errors";
 
 jest.mock("../../../api/user/user.service");
 
@@ -27,7 +28,7 @@ describe("Register User API", () => {
         const response = mockResponse();
         const mockedCreateUser = mocked(createUser, true);
         const errorMessage = "User is invalid";
-        mockedCreateUser.mockResolvedValue(err({ code: UserErrors.VALIDATION_ERROR, message: errorMessage }));
+        mockedCreateUser.mockResolvedValue(err({ code: ApiError.VALIDATION_ERROR, message: errorMessage }));
 
         await register(req, response as Response);
 
@@ -39,7 +40,7 @@ describe("Register User API", () => {
         const response = mockResponse();
         const mockedCreateUser = mocked(createUser, true);
         const errorMessage = "User exists";
-        mockedCreateUser.mockResolvedValue(err({ code: UserErrors.USER_EXISTS, message: errorMessage }));
+        mockedCreateUser.mockResolvedValue(err({ code: ApiError.ENTITY_EXISTS, message: errorMessage }));
 
         await register(req, response as Response);
 
@@ -51,7 +52,7 @@ describe("Register User API", () => {
         const response = mockResponse();
         const mockedCreateUser = mocked(createUser, true);
         const errorMessage = "Unknow error";
-        mockedCreateUser.mockResolvedValue(err({ code: UserErrors.UNKNOWN_ERROR, message: errorMessage }));
+        mockedCreateUser.mockResolvedValue(err({ code: ApiError.UNKNOWN_ERROR, message: errorMessage }));
 
         await register(req, response as Response);
 
@@ -81,7 +82,7 @@ describe("Login User API", () => {
         const response = mockResponse();
         const mockedValidateUser = mocked(validateUser, true);
         const errorMessage = "User is invalid";
-        mockedValidateUser.mockResolvedValue(err({ code: UserErrors.VALIDATION_ERROR, message: errorMessage }));
+        mockedValidateUser.mockResolvedValue(err({ code: ApiError.VALIDATION_ERROR, message: errorMessage }));
 
         await login(req, response as Response);
 
