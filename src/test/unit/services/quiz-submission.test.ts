@@ -4,7 +4,6 @@ import { getMockedCollection } from "./util/mock";
 import { insertQuizSubmission } from "../../../api/quiz-submission/quiz-submission.service";
 
 jest.mock("../../../db");
-jest.mock("../../../validators/quiz.validator");
 
 describe("Quiz Submission Service", () => {
     test("Should return ok with quiz submission", async () => {

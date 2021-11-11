@@ -3,11 +3,12 @@ import { Quizzes } from "../../../db";
 import { createQuiz } from "../../../api/quiz/quiz.service";
 import { QuizErrors } from "../../../types/errors";
 import { getMockedCollection } from "./util/mock";
-import { validate } from "../../../validators/quiz.validator";
 import { mocked } from "ts-jest/utils";
+import { quizSchema } from "../../../api/quiz/quiz.schema";
+import { ValidationError, ValidationResult } from "joi";
 
 jest.mock("../../../db");
-jest.mock("../../../validators/quiz.validator");
+jest.mock("../../../api/quiz/quiz.schema");
 
 describe("Quiz Service Create Quiz", () => {
     test("Should return ok with quiz", async () => {
@@ -31,7 +32,9 @@ describe("Quiz Service Create Quiz", () => {
         };
         const mockUserCollection = getMockedCollection(Quizzes);
         mockUserCollection.insertOne = jest.fn().mockImplementation(() => ({ ...quiz, insertedId: 42 }));
-        mocked(validate).mockReturnValue(ok(quiz));
+        mocked(quizSchema.validate).mockReturnValue({
+            value: quiz
+        } as ValidationResult);
 
         const result = await createQuiz(quiz);
 
@@ -40,12 +43,16 @@ describe("Quiz Service Create Quiz", () => {
     test("Should return err when invalid quiz", async () => {
         const quiz = {};
         const mockUserCollection = getMockedCollection(Quizzes);
-        mockUserCollection.insertOne = jest.fn().mockImplementation(() => ({ ...quiz, insertedId: 42 }));
-        const error = err({ code: QuizErrors.VALIDATION_ERROR, message: "Some validation error" });
-        mocked(validate).mockReturnValue(error);
+        const errorMessage = "Some validation error";
+        mockUserCollection.insertOne = jest.fn().mockImplementation(() => ({ ...quiz, insertedId: 42 }));        
+        mocked(quizSchema.validate).mockReturnValue({
+            error: {
+                message: errorMessage
+            } as ValidationError                      
+        } as ValidationResult);
 
         const result = await createQuiz(quiz);
 
-        expect(result).toStrictEqual(error);
+        expect(result).toStrictEqual(err({ code: QuizErrors.VALIDATION_ERROR, message: errorMessage }));
     });
 });
