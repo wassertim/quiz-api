@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { createUser, validateUser } from "./user.service";
 import { constants } from "http2";
 import { User } from "../../model/user.model";
-import { mapToStatusCode } from "./userErrorsMapper";
+import { mapToStatusCode } from "./user.errors.mapper";
 
 export async function register(req: Request<unknown, unknown, User>, res: Response<User | string>) {
     return (await createUser(req.body))
