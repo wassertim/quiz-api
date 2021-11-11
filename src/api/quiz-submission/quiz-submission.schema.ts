@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { QuestionAndAnswers, QuizSubmission } from "../model";
+import { QuestionAndAnswers, QuizSubmission } from "../../model";
 
 const objIdPattern = /^[0-9a-fA-F]{24}$/;
 

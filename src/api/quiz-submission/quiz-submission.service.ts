@@ -2,7 +2,7 @@ import { err, ok } from "neverthrow";
 import { QuizSubmissions } from "../../db";
 import { QuizSubmission } from "../../model";
 import { QuizErrors } from "../../types/errors";
-import { quizSubmissionSchema } from "../../validators/quiz-submission.schema";
+import { quizSubmissionSchema } from "./quiz-submission.schema";
 
 export async function insertQuizSubmission(quiz: QuizSubmission) {
     const validationResult = quizSubmissionSchema.validate(quiz);
