@@ -1,7 +1,7 @@
 import { err, ok } from "neverthrow";
 import { QuizSubmissions } from "../../db";
 import { QuizSubmission } from "../../model";
-import { ApiError } from "../../types/errors";
+import { ApiError } from "../../errors/errors";
 
 export async function insertQuizSubmission(quiz: QuizSubmission) {        
     try {        

@@ -1,5 +1,5 @@
 import { err, ok, Result } from "neverthrow";
-import { ApiError, ServiceError } from "../../types/errors";
+import { ApiError, ServiceError } from "../../errors/errors";
 import { User } from "../../model/user.model";
 import { Users } from "../../db";
 import bcrypt from "bcrypt";

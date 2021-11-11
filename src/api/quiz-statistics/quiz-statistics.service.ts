@@ -1,7 +1,7 @@
 import { ObjectId } from "bson";
 import { err, ok } from "neverthrow";
 import { QuizSubmissions, Quizzes } from "../../db";
-import { ApiError } from "../../types/errors";
+import { ApiError } from "../../errors/errors";
 import { buildStatistics } from "./quiz-statistics.reducer";
 
 export async function findQuizStatistics(quizId: string) {

@@ -6,7 +6,7 @@ import { User } from "../../../model/user.model";
 import { mockResponse } from "../../../test/express.mock";
 import { constants } from "http2";
 import { mocked } from "ts-jest/utils";
-import { ApiError } from "../../../types/errors";
+import { ApiError } from "../../../errors/errors";
 
 jest.mock("../../../api/user/user.service");
 

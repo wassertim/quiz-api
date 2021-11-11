@@ -2,7 +2,7 @@ import { ObjectId, ReturnDocument } from "mongodb";
 import { err, ok } from "neverthrow";
 import { Quizzes } from "../../db";
 import { Quiz } from "../../model/quiz.model";
-import { ApiError, ServiceError } from "../../types/errors";
+import { ApiError, ServiceError } from "../../errors/errors";
 
 export async function createQuiz(quiz: Quiz) {
     try {

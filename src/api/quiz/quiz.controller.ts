@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Quiz, User } from "../../model";
 import { constants } from "http2";
 import { createQuiz, editQuiz } from "./quiz.service";
-import { mapToStatusCode } from "../user/user.errors.mapper";
+import { mapToStatusCode } from "../../errors/error.mapper";
 
 export async function addQuiz(req: Request<unknown, unknown, Quiz>, res: Response<Quiz | string>) {
     const { login } = <User>req.user;

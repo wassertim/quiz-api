@@ -5,7 +5,7 @@ import { constants } from "http2";
 import { mocked } from "ts-jest/utils";
 import { addQuiz } from "../quiz.controller";
 import { createQuiz } from "../quiz.service";
-import { ApiError } from "../../../types/errors";
+import { ApiError } from "../../../errors/errors";
 
 jest.mock("../../../api/quiz/quiz.service");
 
