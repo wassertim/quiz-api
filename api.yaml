@@ -54,6 +54,12 @@ paths:
                 $ref: "#/components/schemas/Token"
   /quiz-statistics/{quizId}:
     get:
+      parameters:
+        - in: path
+          name: quizId
+          required: true
+          schema:
+            $ref: "#/components/schemas/ObjectIdRequired"
       tags:
         - Quiz Statistics
       operationId: getQuizSubmissionResults
@@ -190,7 +196,7 @@ components:
       type: object
       properties:
         quizId:
-          $ref: "#/components/schemas/ObjectId"
+          $ref: "#/components/schemas/ObjectIdRequired"
         questionsAndAnswers:
           type: array
           items:
@@ -239,6 +245,9 @@ components:
       type: string
       example: 507f1f77bcf86cd799439011
       readOnly: true
+    ObjectIdRequired:
+      type: string
+      example: 507f1f77bcf86cd799439011      
     Answer:
       type: object
       properties:
