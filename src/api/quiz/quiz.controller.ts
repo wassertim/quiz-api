@@ -8,8 +8,14 @@ const codeMap = {} as Record<QuizErrors, number>;
 codeMap[QuizErrors.VALIDATION_ERROR] = constants.HTTP_STATUS_BAD_REQUEST;
 
 export async function addQuiz(req: Request<unknown, unknown, Quiz>, res: Response<Quiz | string>) {
-    return (await createQuiz({ ...req.body, createdBy: (<User>req.user).login! }))
-        .map((quiz) => res.status(constants.HTTP_STATUS_CREATED).send(quiz))
+    const { login } = <User>req.user;
+    return (await createQuiz({ ...req.body, createdBy: login! }))
+        .map((quiz) => {
+            return res
+                .set(constants.HTTP2_HEADER_LOCATION, `/profiles/${login!}/quizzes/${quiz.id}`)
+                .status(constants.HTTP_STATUS_CREATED)
+                .send(quiz);
+        })
         .mapErr((err) => res.status(codeMap[err.code] || constants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send(err.message))
         .unwrapOr(() => res.status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send("Unknown Error"));
 }
