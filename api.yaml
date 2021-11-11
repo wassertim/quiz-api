@@ -238,6 +238,7 @@ components:
     ObjectId:
       type: string
       example: 507f1f77bcf86cd799439011
+      readOnly: true
     Answer:
       type: object
       properties:
@@ -272,10 +273,11 @@ components:
       type: object
       properties:
         _id:
-          $ref: "#/components/schemas/ObjectId"
+          $ref: "#/components/schemas/ObjectId"        
         createdBy:
           type: string
           example: laura
+          readOnly: true
         questions:
           nullable: false
           type: array

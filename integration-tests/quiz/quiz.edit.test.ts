@@ -112,6 +112,6 @@ describe("Edit Quiz API", () => {
 
         expect(openapi.validateResponse(method, path)(response)).toBeUndefined();
         expect(response.statusCode).toBe(constants.HTTP_STATUS_UNAUTHORIZED);
-        expect(response.text).toBe("You are not authorized to update this resource");
+        expect(response.text).toBe("You are not authorized to modify this resource");
     });
 });
