@@ -14,10 +14,9 @@ export async function findQuizStatistics(quizId: string) {
 
         if (!quiz || !quizAttempts) {
             return err({ code: ApiError.UNKNOWN_ERROR, message: "No statistics" });
-        }
-        const stat = buildStatistics({ ...quiz, id: quizId }, quizAttempts);
+        }        
 
-        return ok(stat);
+        return ok(buildStatistics({ ...quiz, id: quizId }, quizAttempts));
     } catch (e) {
         return err({ code: ApiError.UNKNOWN_ERROR, message: "No statistics" });
     }
